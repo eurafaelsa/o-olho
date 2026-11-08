@@ -1,0 +1,48 @@
+name: Rodada diária do O Olho
+
+on:
+  schedule:
+    - cron: "0 9 * * *"   # 06:00 em Fortaleza (09:00 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: rodada-diaria
+  cancel-in-progress: false
+
+jobs:
+  rodada:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: pip install -r scripts/requirements.txt
+
+      - name: Data da rodada
+        run: echo "DATA_RODADA=$(TZ=America/Fortaleza date +%F)" >> "$GITHUB_ENV"
+
+      - name: Rodar o editor-chefe
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MODELO: ${{ vars.MODELO }}
+          MAX_BUSCAS: ${{ vars.MAX_BUSCAS }}
+          RESUMO: ${{ runner.temp }}/resumo.md
+        run: python scripts/rodada.py
+
+      - name: Abrir pedido de aprovação
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: rodada/${{ env.DATA_RODADA }}
+          commit-message: "Rodada de ${{ env.DATA_RODADA }}"
+          title: "Rodada de ${{ env.DATA_RODADA }}"
+          body-path: ${{ runner.temp }}/resumo.md
+          delete-branch: true

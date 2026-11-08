@@ -1,0 +1,1263 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>O Olho | Painel de risco de guerra</title>
+<meta name="description" content="Painel de pressão de guerra local, continental e mundial a partir de sinais públicos verificáveis.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👁️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400&display=swap">
+<link rel="stylesheet" href="assets/tema.css">
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="assets/dash-shim.js"></script>
+</head>
+<body>
+<main id="dash-root">
+<meta name="dash-one-writer">
+<style>
+  .olho { font-family: var(--font-anthropic-sans); color: var(--color-fg);
+    --f-calmo: var(--color-ok);
+    --f-atencao: color-mix(in srgb, var(--color-warn) 55%, var(--color-ok));
+    --f-tensao: var(--color-warn);
+    --f-alerta: var(--color-bad);
+    --f-critico: color-mix(in srgb, var(--color-bad) 70%, var(--color-fg));
+    --f-baixa: var(--cds-chart-muted);
+    --terra: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .olho-head h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0 0 var(--cds-gap-xs); }
+  .olho-take { margin: 0; font-size: var(--cds-font-size-body); color: var(--color-fg-muted); }
+  .olho .olho-take b { font-weight: 600; color: var(--color-fg); }
+  .olho-tabs { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); margin: var(--cds-gap-md) 0; }
+  .olho-tab, .olho-chip { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-panel); color: var(--color-fg); cursor: pointer; }
+  .olho-tab[aria-selected="true"], .olho-chip[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
+  .olho-controls { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); align-items: center; margin-bottom: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .olho-controls > div { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; }
+  .olho-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr)); gap: var(--cds-gap-sm); margin-bottom: var(--cds-gap-md); }
+  .olho-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--cds-gap-md); margin-bottom: var(--cds-gap-md); }
+  .olho-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); min-width: 0; }
+  .olho-mb { margin-bottom: var(--cds-gap-md); }
+  .olho-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0 0 var(--cds-gap-xs); }
+  .olho-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0 0 var(--cds-gap-sm); }
+  .olho-label { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0; }
+  .olho .olho-big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; display: inline-block; min-width: 1.2em; line-height: 1.15; }
+  .olho-gauges { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--cds-gap-md); }
+  .olho-gauge-box { text-align: center; min-width: 0; }
+  .olho-gauge { min-height: 210px; }
+  .olho-gauge svg { display: block; max-width: 240px; margin: 0 auto; }
+  .olho-gval { display: flex; justify-content: center; align-items: baseline; gap: .5rem; }
+  .olho-gauge .olho-note { margin: 0; }
+  .olho-sobe { color: var(--color-bad); }
+  .olho-desce { color: var(--color-ok); }
+  .olho-mapa { position: relative; min-height: 220px; }
+  .olho-mapa svg { display: block; width: 100%; height: auto; touch-action: none; border-radius: var(--cds-radius); }
+  .olho-chart { position: relative; min-height: 300px; }
+  .olho-serie { position: relative; min-height: 360px; }
+  .olho-rede { position: relative; min-height: 480px; }
+  .olho-arvore { position: relative; min-height: 420px; overflow-x: auto; }
+  .olho-multiplos { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: var(--cds-gap-sm); min-height: 200px; }
+  .olho-mini { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-sm); min-width: 0; }
+  .olho-mini p { margin: 0; font-size: var(--cds-font-size-caption); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .olho-mini svg { display: block; width: 100%; height: 36px; }
+  .olho-scroll { overflow-x: auto; }
+  .olho-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+  .olho-table th { text-align: left; font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); border-bottom: 1px solid var(--color-border-line); padding: var(--cds-pad-xs) var(--cds-pad-sm); white-space: nowrap; }
+  .olho-table td { border-bottom: 1px solid var(--color-border-line); padding: var(--cds-pad-xs) var(--cds-pad-sm); vertical-align: top; }
+  .olho-table td.olho-num { text-align: right; white-space: nowrap; }
+  .olho-table td.olho-texto { min-width: 15rem; }
+  .olho-table a, .olho-portal { color: inherit; }
+  .olho-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); max-width: 17rem; z-index: 3; }
+  .olho-tip strong { display: block; color: var(--cds-text-secondary); font-weight: var(--cds-font-weight-medium); }
+  .olho-matriz { display: grid; grid-template-columns: auto repeat(3, minmax(0, 1fr)); gap: var(--cds-gap-xs); min-height: 240px; }
+  .olho-cel { border-radius: var(--cds-radius); padding: var(--cds-pad-sm); border-left: 4px solid var(--olho-cor, var(--f-baixa)); background: color-mix(in srgb, var(--olho-cor, var(--f-baixa)) 16%, var(--color-panel)); min-width: 0; font-size: var(--cds-font-size-caption); }
+  .olho-cel .olho-big { display: block; }
+  .olho-cab { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); align-self: end; padding: var(--cds-pad-xs); }
+  .olho-legenda { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: var(--cds-gap-xs) 0 var(--cds-gap-sm); padding: 0; list-style: none; }
+  .olho-legenda li { display: inline-flex; align-items: center; gap: .35rem; }
+  .olho-legenda span { width: .8rem; height: .8rem; border-radius: 3px; background: var(--olho-cor, var(--f-baixa)); flex: none; }
+  .olho-legenda.olho-linhas span { width: 1.2rem; height: 0; border-radius: 0; background: none; border-top: 3px solid var(--olho-cor, var(--f-baixa)); }
+  .olho-l-alianca { --olho-cor: var(--color-ok); }
+  .olho-l-dialogo { --olho-cor: var(--color-fg-muted); }
+  .olho-l-dialogo span { border-top-style: dashed; }
+  .olho-l-atrito { --olho-cor: var(--color-warn); }
+  .olho-l-hostilidade { --olho-cor: var(--color-bad); }
+  .olho-chips { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); padding: 0; margin: 0; list-style: none; min-height: 32px; }
+  .olho-chips li { font-size: var(--cds-font-size-caption); border: 1px solid var(--color-border-line); border-radius: 999px; padding: 2px 10px; }
+  .olho-portais { display: grid; gap: var(--cds-gap-md); min-height: 200px; }
+  .olho-portais h3 { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); margin: 0 0 var(--cds-gap-xs); }
+  .olho-portais-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); gap: var(--cds-gap-xs); }
+  .olho-portal { display: flex; align-items: center; gap: var(--cds-gap-xs); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-sm); text-decoration: none; font-size: var(--cds-font-size-caption); min-width: 0; }
+  .olho-portal:hover { border-color: var(--color-fg); }
+  .olho-portal b { flex: none; width: 1.6rem; height: 1.6rem; border-radius: 50%; display: grid; place-items: center; color: var(--color-bg); background: var(--olho-cor, var(--f-baixa)); font-size: var(--cds-font-size-caption); }
+  .olho-portal span { overflow: hidden; text-overflow: ellipsis; }
+  .olho-falha { display: flex; align-items: center; justify-content: center; gap: .4rem; min-height: inherit; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); margin: 0; }
+  .olho-dot { width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+  .olho [data-dash-source-state=empty] { color: transparent; }
+  .olho [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+  .olho select { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-panel); color: var(--color-fg); max-width: 100%; }
+  .olho-boletim { font-size: var(--cds-font-size-body); line-height: 1.55; margin: 0; }
+  .olho-radios { display: grid; gap: var(--cds-gap-md); min-height: 200px; }
+  .olho-radios h3 { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); margin: 0 0 var(--cds-gap-xs); }
+  .olho-radios-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: var(--cds-gap-sm); }
+  .olho-radio { border: 1px solid var(--color-border-line); border-left: 4px solid var(--olho-cor, var(--terra)); border-radius: var(--cds-radius); padding: var(--cds-pad-md); display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .olho-radio h4 { margin: 0; font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); }
+  .olho-radio p { margin: 0; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .olho-radio .olho-resumo { color: var(--color-fg); }
+  .olho-radio .olho-trecho { font-style: italic; }
+  .olho-acoes { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; margin-top: auto; padding-top: 6px; font-size: var(--cds-font-size-caption); }
+</style>
+<div class="olho">
+  <audio id="olho-audio" preload="none"></audio>
+  <header class="olho-head" id="topo">
+    <h1>O Olho, painel de risco de guerra</h1>
+    <p class="olho-take">Rodada de <b data-draw="rodada-data" data-source="rodada" data-field="data" data-row="0">—</b>. Índice mundial no horizonte médio: <b data-draw="mundo-medio" data-source="indice_mundo" data-field="indice" data-where="horizonte=medio">—</b>, faixa <b data-draw="mundo-medio-faixa" data-source="indice_mundo" data-field="faixa" data-where="horizonte=medio">—</b>, puxado por <b data-draw="mundo-medio-foco" data-source="indice_mundo" data-field="foco" data-where="horizonte=medio">—</b>.</p>
+  </header>
+  <div class="olho-tabs" role="tablist" aria-label="Telas do painel">
+    <button class="olho-tab" role="tab" data-aba="geral" aria-selected="true">Visão geral</button>
+    <button class="olho-tab" role="tab" data-aba="paises" aria-selected="false">Países</button>
+    <button class="olho-tab" role="tab" data-aba="kits" aria-selected="false">Kits</button>
+    <button class="olho-tab" role="tab" data-aba="ciber" aria-selected="false">Ciber</button>
+    <button class="olho-tab" role="tab" data-aba="radios" aria-selected="false">Rádios</button>
+    <button class="olho-tab" role="tab" data-aba="gatilhos" aria-selected="false">Gatilhos</button>
+    <button class="olho-tab" role="tab" data-aba="aliancas" aria-selected="false">Alianças</button>
+    <button class="olho-tab" role="tab" data-aba="portais" aria-selected="false">Portais</button>
+    <button class="olho-tab" role="tab" data-aba="fichas" aria-selected="false">Fichas</button>
+  </div>
+
+  <div class="olho-controls" id="controles">
+    <div><span>Horizonte</span>
+      <button class="olho-chip" data-horizonte="curto" aria-pressed="false">Curto</button>
+      <button class="olho-chip" data-horizonte="medio" aria-pressed="true">Médio</button>
+      <button class="olho-chip" data-horizonte="longo" aria-pressed="false">Longo</button>
+    </div>
+    <div><span>Escala</span>
+      <button class="olho-chip" data-escala="local" aria-pressed="false">Local</button>
+      <button class="olho-chip" data-escala="continental" aria-pressed="true">Continental</button>
+      <button class="olho-chip" data-escala="mundial" aria-pressed="false">Mundial</button>
+    </div>
+  </div>
+
+  <section id="geral" class="olho-aba">
+    <div class="olho-card olho-mb" id="velocimetro-card">
+      <h2>Velocímetro de guerra</h2>
+      <p class="olho-note">Pressão de guerra no horizonte <span data-draw="sel-horizonte">—</span>. Cada ponteiro mostra o país mais quente daquela escala. Ainda não é probabilidade.</p>
+      <div class="olho-gauges">
+        <div class="olho-gauge-box" id="gauge-local-box"><p class="olho-label">Guerra local</p><div class="olho-gauge" data-draw="gauge-local" data-source="velocimetro"></div></div>
+        <div class="olho-gauge-box" id="gauge-continental-box"><p class="olho-label">Guerra continental</p><div class="olho-gauge" data-draw="gauge-continental" data-source="velocimetro"></div></div>
+        <div class="olho-gauge-box" id="gauge-mundial-box"><p class="olho-label">Guerra mundial</p><div class="olho-gauge" data-draw="gauge-mundial" data-source="velocimetro"></div></div>
+      </div>
+    </div>
+    <div class="olho-card olho-mb" id="mapa-card">
+      <h2>Mapa do mundo</h2>
+      <div class="olho-controls"><div>
+        <button class="olho-chip" data-camada="pressao" aria-pressed="true">Pressão de guerra</button>
+        <button class="olho-chip" data-camada="guerras" aria-pressed="false">Guerras hoje</button>
+        <button class="olho-chip" data-camada="ciber" aria-pressed="false">Ciberataques</button>
+        <button class="olho-chip" data-camada="kits" aria-pressed="false">Kits</button>
+      </div></div>
+      <div class="olho-mapa" id="mapa-geral" data-draw="mapa" data-camada-fixa="" data-source="paises indice_pais conflitos ciber kits"></div>
+      <p class="olho-note">Toque num país ou pin para ver o registro. Use pinça ou a roda do mouse para aproximar.</p>
+    </div>
+    <div class="olho-card olho-mb" id="serie-card">
+      <h2>Pressão de guerra, dia a dia</h2>
+      <p class="olho-note">Horizonte <span data-draw="sel-horizonte">—</span>. Linhas: maior nota por país em cada escala. Barras: saldo dos sinais do dia. Pontos: leituras gravadas, que até 7/11 eram calculadas por foco.</p>
+      <ul class="olho-legenda olho-linhas" data-draw="serie-legenda" data-source="serie"></ul>
+      <div class="olho-serie" id="serie" data-draw="serie-chart" data-source="serie saldo historico"></div>
+    </div>
+    <div class="olho-tiles" id="tiles">
+      <div class="olho-card"><p class="olho-label">Países em guerra hoje</p><b class="olho-big" data-draw="t-guerra" data-source="resumo" data-field="em_guerra" data-row="0">—</b></div>
+      <div class="olho-card"><p class="olho-label">Países em Tensão ou acima</p><b class="olho-big" data-draw="t-tensao" data-source="resumo" data-field="tensao_ou_mais" data-row="0">—</b></div>
+      <div class="olho-card"><p class="olho-label">Sinais confirmados</p><b class="olho-big" data-draw="t-conf" data-source="resumo" data-field="confirmados" data-row="0">—</b></div>
+      <div class="olho-card"><p class="olho-label">Lugares que pediram kits</p><b class="olho-big" data-draw="t-kits" data-source="resumo" data-field="kits_oficiais" data-row="0">—</b></div>
+      <div class="olho-card"><p class="olho-label">Relógio do Juízo Final, segundos</p><b class="olho-big" data-draw="t-relogio" data-source="referencias" data-field="valor" data-where="id=relogio">—</b></div>
+      <div class="olho-card"><p class="olho-label">Brent, US$ por barril</p><b class="olho-big" data-draw="t-brent" data-source="referencias" data-field="valor" data-where="id=brent">—</b></div>
+      <div class="olho-card"><p class="olho-label">Ataques em Hormuz em outubro</p><b class="olho-big" data-draw="t-hormuz" data-source="referencias" data-field="valor" data-where="id=hormuz">—</b></div>
+    </div>
+    <div class="olho-card" id="boletim-card">
+      <h2>Boletim do editor-chefe</h2>
+      <p class="olho-boletim" data-draw="boletim" data-source="rodada" data-field="boletim" data-row="0">—</p>
+    </div>
+  </section>
+
+  <section id="paises" class="olho-aba" hidden>
+    <div class="olho-card olho-mb" id="ranking-card">
+      <h2>Países por nota</h2>
+      <p class="olho-note">Escala <span data-draw="sel-escala">—</span>, horizonte <span data-draw="sel-horizonte">—</span>. Barra cinza: confiança baixa.</p>
+      <ul class="olho-legenda" data-draw="legenda-faixas"></ul>
+      <div class="olho-chart" id="ranking-paises" data-draw="ranking-paises" data-source="indice_pais"></div>
+    </div>
+    <div class="olho-card olho-mb" id="continentes-card">
+      <h2>Ascensão das guerras locais por continente</h2>
+      <p class="olho-note">Maior nota local entre os países de cada continente, dia a dia.</p>
+      <ul class="olho-legenda olho-linhas" data-draw="continentes-legenda" data-source="serie_continente"></ul>
+      <div class="olho-chart" id="continentes" data-draw="continentes-chart" data-source="serie_continente"></div>
+    </div>
+    <div class="olho-card olho-mb" id="multiplos-card">
+      <h2>Ascensão das guerras locais por país</h2>
+      <p class="olho-note">Os doze países com maior nota local; a seta mostra a variação em sete dias.</p>
+      <div class="olho-multiplos" data-draw="multiplos" data-source="serie_pais indice_pais"></div>
+    </div>
+    <div class="olho-card" id="matriz-card">
+      <h2>Matriz escala por horizonte</h2>
+      <div class="olho-controls"><div><span>País</span><select data-draw="pais-sel" aria-label="País" data-source="indice_pais"></select></div></div>
+      <div class="olho-matriz" data-draw="matriz" data-source="indice_pais"></div>
+    </div>
+  </section>
+
+  <section id="kits" class="olho-aba" hidden>
+    <div class="olho-tiles">
+      <div class="olho-card"><p class="olho-label">Orientações oficiais</p><b class="olho-big" data-draw="k-ofic" data-source="resumo" data-field="kits_oficiais" data-row="0">—</b></div>
+      <div class="olho-card"><p class="olho-label">Procura em alta</p><b class="olho-big" data-draw="k-proc" data-source="resumo" data-field="kits_procura" data-row="0">—</b></div>
+      <div class="olho-card"><p class="olho-label">Notícias</p><b class="olho-big" data-draw="k-not" data-source="resumo" data-field="kits_noticia" data-row="0">—</b></div>
+    </div>
+    <div class="olho-card olho-mb" id="kits-mapa-card">
+      <h2>Onde pediram kits e onde a procura disparou</h2>
+      <div class="olho-mapa" id="mapa-kits" data-draw="mapa" data-camada-fixa="kits" data-source="paises kits"></div>
+    </div>
+    <div class="olho-grid">
+      <div class="olho-card" id="kits-barras-card">
+        <h2>Registros por país</h2>
+        <div class="olho-chart" data-draw="kits-barras" data-source="kits"></div>
+      </div>
+      <div class="olho-card" id="kits-linha-card">
+        <h2>Linha do tempo</h2>
+        <div class="olho-chart" data-draw="kits-linha" data-source="kits"></div>
+      </div>
+    </div>
+    <div class="olho-card" id="kits-tabela-card">
+      <h2>Todos os lugares</h2>
+      <div class="olho-scroll"><table class="olho-table" data-source="kits" data-row-key="id"><thead><tr><th data-field="local">Lugar</th><th data-field="tipo">Tipo</th><th data-field="motivo">Motivo</th><th data-field="data">Data</th><th data-field="fonte_nome">Fonte</th></tr></thead><tbody data-draw="kits-body"></tbody></table></div>
+    </div>
+  </section>
+
+  <section id="ciber" class="olho-aba" hidden>
+    <div class="olho-card olho-mb" id="ciber-mapa-card">
+      <h2>Onde os ciberataques se concentram</h2>
+      <p class="olho-note">Quanto mais escuro, maior a fatia de ataques. Contorno tracejado: origem atribuída por relatórios, não comprovada.</p>
+      <div class="olho-mapa" id="mapa-ciber" data-draw="mapa" data-camada-fixa="ciber" data-source="paises ciber"></div>
+    </div>
+    <div class="olho-grid">
+      <div class="olho-card" id="ciber-barras-card">
+        <h2>Países mais atingidos</h2>
+        <p class="olho-note">Fatia dos ataques a clientes da Microsoft, janeiro a junho de 2026.</p>
+        <div class="olho-chart" data-draw="ciber-barras" data-source="ciber"></div>
+      </div>
+      <div class="olho-card" id="ciber-origens-card">
+        <h2>Origens atribuídas</h2>
+        <ul class="olho-chips" data-draw="ciber-origens" data-source="ciber"></ul>
+      </div>
+    </div>
+    <div class="olho-card" id="ciber-tabela-card">
+      <h2>Registros</h2>
+      <div class="olho-scroll"><table class="olho-table" data-source="ciber" data-row-key="id"><thead><tr><th data-field="pais">País</th><th data-field="papel">Papel</th><th data-field="resumo">Registro</th><th data-field="fonte_nome">Fonte</th></tr></thead><tbody data-draw="ciber-body"></tbody></table></div>
+    </div>
+  </section>
+
+  <section id="radios" class="olho-aba" hidden>
+    <div class="olho-tiles">
+      <div class="olho-card"><p class="olho-label">Rádios monitoradas</p><b class="olho-big" data-draw="r-total" data-source="radios_resumo" data-field="monitoradas" data-row="0">—</b></div>
+      <div class="olho-card"><p class="olho-label">Com transmissão encontrada</p><b class="olho-big" data-draw="r-ar" data-source="radios_resumo" data-field="no_ar" data-row="0">—</b></div>
+      <div class="olho-card"><p class="olho-label">Falando de guerra no último boletim</p><b class="olho-big" data-draw="r-guerra" data-source="radios_resumo" data-field="falando" data-row="0">—</b></div>
+      <div class="olho-card"><p class="olho-label">Boletins em sete dias</p><b class="olho-big" data-draw="r-bol" data-source="radios_resumo" data-field="boletins" data-row="0">—</b></div>
+    </div>
+    <div class="olho-card olho-mb" id="radios-faixa-card">
+      <h2>Quem falou de guerra, boletim a boletim</h2>
+      <p class="olho-note">Cada quadrado é um boletim gravado. Cinza: sem menção a guerra. Cores: intensidade do tema.</p>
+      <div class="olho-chart" data-draw="radios-faixa" data-source="radios boletins"></div>
+    </div>
+    <div class="olho-card olho-mb" id="radios-cartoes-card">
+      <h2>Rádios e último boletim traduzido</h2>
+      <p class="olho-note">Resumo em português do último boletim de cada rádio, três vezes ao dia. A transcrição completa não é publicada; o texto ao vivo chega na próxima fase.</p>
+      <div class="olho-radios" data-draw="radios-cartoes" data-source="radios_cartoes"></div>
+    </div>
+    <div class="olho-card" id="boletins-card">
+      <h2>Boletins dos últimos sete dias</h2>
+      <div class="olho-scroll"><table class="olho-table" data-source="boletins" data-row-key="id"><thead><tr><th data-field="data_hora">Horário</th><th data-field="radio">Rádio</th><th data-field="fala_de_guerra">Guerra</th><th data-field="resumo">Resumo</th><th data-field="link">Fonte</th></tr></thead><tbody data-draw="boletins-body"></tbody></table></div>
+    </div>
+  </section>
+
+  <section id="gatilhos" class="olho-aba" hidden>
+    <div class="olho-card" id="gatilhos-card">
+      <h2>Mapa mental dos gatilhos de guerra</h2>
+      <p class="olho-note">Do centro para fora: focos, canais por onde a tensão passa e onde ela está fora dos focos. A cor segue o termômetro; o tamanho, a força do canal. Toque num nó para ver o sinal mais forte.</p>
+      <ul class="olho-legenda" data-draw="legenda-faixas"></ul>
+      <div class="olho-arvore" data-draw="arvore" data-source="gatilhos"></div>
+    </div>
+  </section>
+
+  <section id="aliancas" class="olho-aba" hidden>
+    <div class="olho-card olho-mb" id="rede-card">
+      <h2>Alianças e desavenças</h2>
+      <ul class="olho-legenda olho-linhas"><li class="olho-l-alianca"><span></span>Aliança</li><li class="olho-l-dialogo"><span></span>Diálogo</li><li class="olho-l-atrito"><span></span>Atrito</li><li class="olho-l-hostilidade"><span></span>Hostilidade</li></ul>
+      <div class="olho-rede" id="rede" data-draw="rede" data-source="aliancas"></div>
+    </div>
+    <div class="olho-card" id="relacoes-card">
+      <h2>Relações registradas</h2>
+      <div class="olho-scroll"><table class="olho-table" data-source="aliancas" data-row-key="id"><thead><tr><th data-field="ator_a">Ator</th><th data-field="ator_b">Ator</th><th data-field="tipo">Tipo</th><th data-field="nota">Relação</th><th data-field="fonte_nome">Fonte</th></tr></thead><tbody data-draw="relacoes-body"></tbody></table></div>
+    </div>
+  </section>
+
+  <section id="portais" class="olho-aba" hidden>
+    <div class="olho-card" id="portais-card">
+      <h2>Portais que o Olho acompanha</h2>
+      <p class="olho-note">A letra é a nota Admiralty da fonte. Toque para abrir.</p>
+      <div class="olho-portais" data-draw="portais" data-source="portais"></div>
+    </div>
+  </section>
+
+  <section id="fichas" class="olho-aba" hidden>
+    <div class="olho-card" id="feed-card">
+      <h2>Fichas de sinal</h2>
+      <div class="olho-controls"><div><span>Família</span>
+        <select class="olho-familia" aria-label="Família">
+          <option value="">Todas</option>
+          <option value="militar">Militar</option>
+          <option value="diplomatico">Diplomático</option>
+          <option value="violencia">Violência em curso</option>
+          <option value="defesa_civil">Defesa civil</option>
+          <option value="economico">Econômico</option>
+          <option value="informacional">Informacional</option>
+        </select></div></div>
+      <div class="olho-scroll"><table class="olho-table" data-source="sinais" data-row-key="id"><thead><tr><th data-field="data">Data</th><th data-field="foco">Foco</th><th data-field="familia_nome">Família</th><th data-field="titulo">Sinal</th><th data-field="admiralty">Nota</th><th data-field="intensidade">Intensidade</th><th data-field="fonte_nome">Fonte</th><th data-field="contraditor">Contraditor</th></tr></thead><tbody data-draw="feed-body"></tbody></table></div>
+    </div>
+  </section>
+</div>
+<script>
+dash.calc('indice', {
+  title: 'Índice O Olho por foco',
+  description: 'Fórmula da metodologia por foco, escala e horizonte; usada no termômetro do mapa mental.',
+  inputs: ['sinais', 'regioes', 'premissas', 'rodada'],
+  fn: (sinais, regioes, premissas, rodada) => {
+    const p = Object.fromEntries(premissas.map((r) => [r.chave, Number(r.valor)]));
+    const quando = (s) => Date.parse(String(s.data).slice(0, 10) + 'T00:00:00Z');
+    const hoje = quando(rodada[0]);
+    const familias = ['militar', 'diplomatico', 'violencia', 'defesa_civil', 'economico', 'informacional'];
+    const nivel = { local: 0, continental: 1, mundial: 2 };
+    const horizontes = { curto: p.meia_vida_curto, medio: p.meia_vida_medio, longo: p.meia_vida_longo };
+    const faixa = (v) => (v <= 20 ? 'Calmo' : v <= 40 ? 'Atenção' : v <= 60 ? 'Tensão' : v <= 80 ? 'Alerta' : 'Crítico');
+    const linhas = [];
+    for (const r of regioes) {
+      for (const escala of Object.keys(nivel)) {
+        const sel = sinais.filter((s) => s.regiao === r.regiao && nivel[s.escala] >= nivel[escala]);
+        for (const [horizonte, T] of Object.entries(horizontes)) {
+          let total = 0;
+          for (const f of familias) {
+            const soma = sel.filter((s) => s.familia === f).reduce((a, s) => a + (Number(s.intensidade) / 3) * p['fonte_' + s.fonte_letra] * p['info_' + s.info_num] * Math.pow(2, -((hoje - quando(s)) / 864e5) / T), 0);
+            total += p['peso_' + f] * Math.max(0, Math.min(1, soma / p.k));
+          }
+          const indice = Math.round(100 * total);
+          linhas.push({ chave: r.regiao + '|' + escala + '|' + horizonte, regiao: r.regiao, nome: r.nome, escala, horizonte, indice, faixa: faixa(indice) });
+        }
+      }
+    }
+    return linhas;
+  },
+});
+dash.calc('serie_pais', {
+  title: 'Pressão de guerra por país, dia a dia',
+  description: 'Fórmula da metodologia aplicada a cada país citado nas fichas, em cada dia da janela, escala e horizonte.',
+  inputs: ['sinais', 'paises', 'premissas', 'rodada'],
+  fn: (sinais, paises, premissas, rodada) => {
+    const JANELA = 30;
+    const EXTRA = { MLT: { nome: 'Malta', continente: 'Europa' }, BHR: { nome: 'Bahrein', continente: 'Ásia' }, SGP: { nome: 'Singapura', continente: 'Ásia' } };
+    const p = Object.fromEntries(premissas.map((r) => [r.chave, Number(r.valor)]));
+    const quando = (s) => Date.parse(String(s.data).slice(0, 10) + 'T00:00:00Z');
+    const dia0 = quando(rodada[0]);
+    const familias = ['militar', 'diplomatico', 'violencia', 'defesa_civil', 'economico', 'informacional'];
+    const nivel = { local: 0, continental: 1, mundial: 2 };
+    const horizontes = { curto: p.meia_vida_curto, medio: p.meia_vida_medio, longo: p.meia_vida_longo };
+    const info = Object.fromEntries(paises.map((x) => [x.iso3, x]));
+    const porPais = {};
+    sinais.forEach((s) => String(s.paises || '').split(',').filter(Boolean).forEach((iso) => { (porPais[iso] = porPais[iso] || []).push(s); }));
+    const linhas = [];
+    Object.keys(porPais).sort().forEach((iso) => {
+      const meta = info[iso] || EXTRA[iso] || { nome: iso, continente: 'Sem continente' };
+      const lista = porPais[iso];
+      for (let i = JANELA - 1; i >= 0; i -= 1) {
+        const hoje = dia0 - i * 864e5;
+        const dia = new Date(hoje).toISOString().slice(0, 10);
+        const validos = lista.filter((s) => quando(s) <= hoje);
+        for (const escala of Object.keys(nivel)) {
+          const sel = validos.filter((s) => nivel[s.escala] >= nivel[escala]);
+          for (const [horizonte, T] of Object.entries(horizontes)) {
+            let total = 0;
+            for (const f of familias) {
+              const soma = sel.filter((s) => s.familia === f).reduce((a, s) => a + (Number(s.intensidade) / 3) * p['fonte_' + s.fonte_letra] * p['info_' + s.info_num] * Math.pow(2, -((hoje - quando(s)) / 864e5) / T), 0);
+              total += p['peso_' + f] * Math.max(0, Math.min(1, soma / p.k));
+            }
+            linhas.push({ chave: dia + '|' + iso + '|' + escala + '|' + horizonte, dia, iso3: iso, nome: meta.nome, continente: meta.continente, escala, horizonte, indice: Math.round(100 * total) });
+          }
+        }
+      }
+    });
+    return linhas;
+  },
+});
+dash.calc('indice_pais', {
+  title: 'Índice O Olho por país',
+  description: 'Leitura do último dia por país, escala e horizonte, com confiança e variação em sete dias.',
+  inputs: ['serie_pais', 'sinais'],
+  fn: (serie, sinais) => {
+    const dias = Array.from(new Set(serie.map((r) => r.dia))).sort();
+    const ultimo = dias[dias.length - 1];
+    const antes = dias[Math.max(0, dias.length - 8)];
+    const nivel = { local: 0, continental: 1, mundial: 2 };
+    const faixa = (v) => (v <= 20 ? 'Calmo' : v <= 40 ? 'Atenção' : v <= 60 ? 'Tensão' : v <= 80 ? 'Alerta' : 'Crítico');
+    const anterior = {};
+    serie.filter((r) => r.dia === antes).forEach((r) => { anterior[r.iso3 + '|' + r.escala + '|' + r.horizonte] = r.indice; });
+    return serie.filter((r) => r.dia === ultimo).map((r) => {
+      const sel = sinais.filter((s) => String(s.paises || '').split(',').includes(r.iso3) && nivel[s.escala] >= nivel[r.escala]);
+      const conf = sel.filter((s) => Number(s.info_num) === 1);
+      const origens = new Set(conf.map((s) => s.fonte_nome)).size;
+      const a = anterior[r.iso3 + '|' + r.escala + '|' + r.horizonte];
+      return { chave: r.iso3 + '|' + r.escala + '|' + r.horizonte, iso3: r.iso3, nome: r.nome, continente: r.continente, escala: r.escala, horizonte: r.horizonte, indice: r.indice, faixa: faixa(r.indice),
+        confianca: conf.length >= 5 && origens >= 3 ? 'Alta' : conf.length >= 2 ? 'Média' : 'Baixa', sinais: sel.length, confirmados: conf.length, variacao7: a == null ? null : r.indice - a };
+    });
+  },
+});
+dash.calc('serie', {
+  title: 'Pressão de guerra dia a dia',
+  description: 'Maior nota entre os países em cada dia, escala e horizonte.',
+  inputs: ['serie_pais'],
+  fn: (sp) => {
+    const melhor = {};
+    sp.forEach((r) => {
+      const k = r.dia + '|' + r.escala + '|' + r.horizonte;
+      const m = melhor[k];
+      if (!m || r.indice > m.indice) melhor[k] = { chave: k, dia: r.dia, escala: r.escala, horizonte: r.horizonte, indice: r.indice, nomes: [r.nome] };
+      else if (r.indice === m.indice) m.nomes.push(r.nome);
+    });
+    return Object.values(melhor).sort((a, b) => a.chave.localeCompare(b.chave)).map((m) => {
+      const n = m.nomes.slice().sort((a, b) => a.localeCompare(b));
+      const foco = m.indice > 0 ? n.slice(0, 3).join(', ') + (n.length > 3 ? ' e mais ' + (n.length - 3) : '') : null;
+      return { chave: m.chave, dia: m.dia, escala: m.escala, horizonte: m.horizonte, indice: m.indice, foco };
+    });
+  },
+});
+dash.calc('serie_continente', {
+  title: 'Guerras locais por continente',
+  description: 'Maior nota local entre os países de cada continente, por dia e horizonte.',
+  inputs: ['serie_pais'],
+  fn: (sp) => {
+    const melhor = {};
+    sp.filter((r) => r.escala === 'local').forEach((r) => {
+      const k = r.dia + '|' + r.continente + '|' + r.horizonte;
+      if (!melhor[k] || r.indice > melhor[k].indice) melhor[k] = { chave: k, dia: r.dia, continente: r.continente, horizonte: r.horizonte, indice: r.indice };
+    });
+    return Object.values(melhor).sort((a, b) => a.chave.localeCompare(b.chave));
+  },
+});
+dash.calc('velocimetro', {
+  title: 'Velocímetro de guerra',
+  description: 'Leitura do último dia da série em cada escala e horizonte, com a variação em sete dias.',
+  inputs: ['serie'],
+  fn: (serie) => {
+    const dias = Array.from(new Set(serie.map((r) => r.dia))).sort();
+    const ultimo = dias[dias.length - 1];
+    const antes = dias[Math.max(0, dias.length - 8)];
+    const faixa = (v) => (v <= 20 ? 'Calmo' : v <= 40 ? 'Atenção' : v <= 60 ? 'Tensão' : v <= 80 ? 'Alerta' : 'Crítico');
+    const linhas = [];
+    for (const escala of ['local', 'continental', 'mundial']) {
+      for (const horizonte of ['curto', 'medio', 'longo']) {
+        const agora = serie.find((r) => r.dia === ultimo && r.escala === escala && r.horizonte === horizonte);
+        const ha7 = serie.find((r) => r.dia === antes && r.escala === escala && r.horizonte === horizonte);
+        linhas.push({ chave: escala + '|' + horizonte, escala, horizonte, indice: agora ? agora.indice : null, faixa: agora ? faixa(agora.indice) : null, foco: agora ? agora.foco : null, variacao7: agora && ha7 ? agora.indice - ha7.indice : null });
+      }
+    }
+    return linhas;
+  },
+});
+dash.calc('indice_mundo', {
+  title: 'Índice mundial',
+  description: 'Leitura do velocímetro na escala mundial, em cada horizonte.',
+  inputs: ['velocimetro'],
+  fn: (v) => v.filter((r) => r.escala === 'mundial').map((r) => ({ horizonte: r.horizonte, indice: r.indice, faixa: r.faixa, foco: r.foco })),
+});
+dash.calc('saldo', {
+  title: 'Saldo diário de sinais',
+  description: 'Soma, por dia de publicação, da intensidade ponderada pela nota Admiralty: positiva puxa para a escalada, negativa para a distensão.',
+  inputs: ['sinais', 'premissas', 'rodada'],
+  fn: (sinais, premissas, rodada) => {
+    const JANELA = 30;
+    const p = Object.fromEntries(premissas.map((r) => [r.chave, Number(r.valor)]));
+    const dia0 = Date.parse(String(rodada[0].data).slice(0, 10) + 'T00:00:00Z');
+    const linhas = [];
+    for (let i = JANELA - 1; i >= 0; i -= 1) {
+      const dia = new Date(dia0 - i * 864e5).toISOString().slice(0, 10);
+      const doDia = sinais.filter((s) => String(s.data).slice(0, 10) === dia);
+      const pesos = doDia.map((s) => (Number(s.intensidade) / 3) * p['fonte_' + s.fonte_letra] * p['info_' + s.info_num]);
+      const escalada = pesos.filter((v) => v > 0).reduce((a, v) => a + v, 0);
+      const distensao = pesos.filter((v) => v < 0).reduce((a, v) => a + v, 0);
+      linhas.push({ dia, escalada: Math.round(escalada * 100) / 100, distensao: Math.round(distensao * 100) / 100, saldo: Math.round((escalada + distensao) * 100) / 100, sinais: doDia.length });
+    }
+    return linhas;
+  },
+});
+dash.calc('resumo', {
+  title: 'Resumo da rodada',
+  description: 'Países em guerra, países em Tensão ou acima (continental, médio), sinais e registros de kits.',
+  inputs: ['conflitos', 'indice_pais', 'sinais', 'kits'],
+  fn: (cf, ip, s, k) => [{
+    em_guerra: cf.filter((r) => r.status === 'Guerra em curso').length,
+    tensao_ou_mais: ip.filter((r) => r.escala === 'continental' && r.horizonte === 'medio' && r.indice > 40).length,
+    sinais: s.length,
+    confirmados: s.filter((x) => Number(x.info_num) === 1).length,
+    kits_oficiais: k.filter((x) => x.tipo === 'Orientação oficial').length,
+    kits_procura: k.filter((x) => x.tipo === 'Procura em alta').length,
+    kits_noticia: k.filter((x) => x.tipo === 'Notícia').length,
+  }],
+});
+dash.calc('gatilhos', {
+  title: 'Mapa mental dos gatilhos',
+  description: 'Focos com o termômetro continental médio, canais ativos em cada foco e registros de ciber e manifestações fora dos focos.',
+  inputs: ['indice', 'regioes', 'sinais', 'ciber', 'manifestacoes', 'premissas', 'rodada'],
+  fn: (indice, regioes, sinais, ciber, manif, premissas, rodada) => {
+    const p = Object.fromEntries(premissas.map((r) => [r.chave, Number(r.valor)]));
+    const quando = (s) => Date.parse(String(s.data).slice(0, 10) + 'T00:00:00Z');
+    const hoje = quando(rodada[0]);
+    const faixa = (v) => (v <= 20 ? 'Calmo' : v <= 40 ? 'Atenção' : v <= 60 ? 'Tensão' : v <= 80 ? 'Alerta' : 'Crítico');
+    const FAM = { militar: 'Militar', diplomatico: 'Diplomático', violencia: 'Violência em curso', defesa_civil: 'Defesa civil', economico: 'Econômico', informacional: 'Informacional' };
+    const linhas = [{ id: 'raiz', pai: null, nome: 'Gatilhos de guerra', valor: null, faixa: null, detalhe: 'Focos, canais e sinais que podem desencadear guerra' }];
+    const doFoco = {};
+    sinais.forEach((s) => { const set = (doFoco[s.regiao] = doFoco[s.regiao] || new Set()); String(s.paises || '').split(',').filter(Boolean).forEach((c) => set.add(c)); });
+    const usados = new Set();
+    regioes.filter((r) => r.regiao !== 'mundo').forEach((r) => {
+      const nota = (indice.find((x) => x.regiao === r.regiao && x.escala === 'continental' && x.horizonte === 'medio') || {}).indice || 0;
+      const fid = 'f:' + r.regiao;
+      linhas.push({ id: fid, pai: 'raiz', nome: r.nome, valor: nota, faixa: faixa(nota), detalhe: r.situacao + '. Caso parecido: ' + r.caso });
+      Object.keys(FAM).forEach((f) => {
+        const sel = sinais.filter((s) => s.regiao === r.regiao && s.familia === f);
+        if (!sel.length) return;
+        const pesos = sel.map((s) => ({ s, w: (Number(s.intensidade) / 3) * p['fonte_' + s.fonte_letra] * p['info_' + s.info_num] * Math.pow(2, -((hoje - quando(s)) / 864e5) / p.meia_vida_medio) }));
+        const v = Math.round(100 * Math.max(0, Math.min(1, pesos.reduce((a, x) => a + x.w, 0) / p.k)));
+        const topo = pesos.slice().sort((a, b) => Math.abs(b.w) - Math.abs(a.w))[0].s;
+        linhas.push({ id: fid + ':' + f, pai: fid, nome: FAM[f], valor: v, faixa: faixa(v), detalhe: topo.titulo });
+      });
+      const set = doFoco[r.regiao] || new Set();
+      const cb = ciber.filter((c) => set.has(c.iso3));
+      if (cb.length) { cb.forEach((c) => usados.add(c.id)); const v = Math.min(100, cb.length * 20); linhas.push({ id: fid + ':ciber', pai: fid, nome: 'Ciber', valor: v, faixa: faixa(v), detalhe: cb.slice(0, 2).map((c) => c.pais + ': ' + c.resumo).join(' | ') }); }
+      const mf = manif.filter((m) => set.has(m.iso3));
+      if (mf.length) { mf.forEach((m) => usados.add(m.id)); const v = Math.min(100, mf.length * 20); linhas.push({ id: fid + ':manif', pai: fid, nome: 'Manifestações', valor: v, faixa: faixa(v), detalhe: mf.slice(0, 2).map((m) => m.pais + ': ' + m.resumo).join(' | ') }); }
+    });
+    const fora = {};
+    ciber.filter((c) => !usados.has(c.id)).forEach((c) => { (fora[c.pais + ', ciber'] = fora[c.pais + ', ciber'] || []).push(c.resumo); });
+    manif.filter((m) => !usados.has(m.id)).forEach((m) => { (fora[m.pais + ', manifestações'] = fora[m.pais + ', manifestações'] || []).push(m.resumo); });
+    const nomes = Object.keys(fora).sort();
+    if (nomes.length) {
+      linhas.push({ id: 'fora', pai: 'raiz', nome: 'Fora dos focos', valor: null, faixa: null, detalhe: 'Ciberataques e manifestações em países sem foco aberto' });
+      nomes.forEach((n, i) => { const v = Math.min(100, fora[n].length * 20); linhas.push({ id: 'fora:' + i, pai: 'fora', nome: n, valor: v, faixa: faixa(v), detalhe: fora[n].slice(0, 2).join(' | ') }); });
+    }
+    return linhas;
+  },
+});
+dash.calc('radios_cartoes', {
+  title: 'Rádios com o último boletim',
+  description: 'Cada rádio monitorada com o resumo, os trechos e a classificação do seu boletim mais recente.',
+  inputs: ['radios', 'boletins'],
+  fn: (radios, boletins) => radios.map((r) => {
+    const b = boletins.filter((x) => x.radio_id === r.id).sort((a, c) => String(c.data_hora).localeCompare(String(a.data_hora)))[0] || {};
+    return { id: r.id, nome: r.nome, grupo: r.grupo, pais: r.pais, idioma_nome: r.idioma_nome, perfil: r.perfil, nota: r.nota,
+      stream_url: String(r.stream_url || ''), homepage: String(r.homepage || ''), status: r.status || 'Aguardando a primeira rodada',
+      data_hora: b.data_hora || null, fala_de_guerra: !!b.fala_de_guerra, intensidade: b.intensidade == null ? null : Number(b.intensidade),
+      resumo: b.resumo || '', trechos: Array.isArray(b.trechos) ? b.trechos.join(' | ') : String(b.trechos || ''), temas: Array.isArray(b.temas) ? b.temas.join(', ') : String(b.temas || '') };
+  }),
+});
+dash.calc('radios_resumo', {
+  title: 'Resumo das rádios',
+  description: 'Rádios monitoradas, com transmissão encontrada, falando de guerra no último boletim e boletins da semana.',
+  inputs: ['radios_cartoes', 'boletins'],
+  fn: (cart, boletins) => [{ monitoradas: cart.length, no_ar: cart.filter((c) => c.stream_url).length, falando: cart.filter((c) => c.fala_de_guerra).length, boletins: boletins.length }],
+});
+</script>
+<script>
+const FAIXAS = [
+  { nome: 'Calmo', ate: 20, cor: '--f-calmo' },
+  { nome: 'Atenção', ate: 40, cor: '--f-atencao' },
+  { nome: 'Tensão', ate: 60, cor: '--f-tensao' },
+  { nome: 'Alerta', ate: 80, cor: '--f-alerta' },
+  { nome: 'Crítico', ate: 100, cor: '--f-critico' },
+];
+const ESCALAS = { local: 'local', continental: 'continental', mundial: 'mundial' };
+const HORIZ = { curto: 'curto', medio: 'médio', longo: 'longo' };
+const ABAS = ['geral', 'paises', 'kits', 'ciber', 'radios', 'gatilhos', 'aliancas', 'portais', 'fichas'];
+const CAMADAS = { pressao: 'Pressão de guerra', guerras: 'Guerras hoje', ciber: 'Ciberataques', kits: 'Kits' };
+const COR_STATUS = { 'Guerra em curso': 'var(--color-bad)', 'Parte em guerra': 'var(--f-critico)', 'Violência armada': 'var(--color-warn)' };
+const COR_CONT = { 'Europa': '#2f62c9', 'Ásia': '#b0569a', 'África': '#12867a', 'América do Norte': '#c27c0e', 'América do Sul': '#6b8e23', 'Oceania': '#7a5af8', 'Sem continente': '#8a949e' };
+const NOTA_COR = { A: 'var(--color-ok)', B: 'color-mix(in srgb, var(--color-ok) 60%, var(--color-warn))', C: 'var(--color-warn)', D: 'var(--color-bad)', E: 'var(--color-bad)', F: 'var(--f-baixa)' };
+const PROJ = () => d3.geoNaturalEarth1().scale(172.94828588629844).translate([480, 250]);
+const num = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 });
+const corKit = () => ({ 'Orientação oficial': dash.colors[0], 'Procura em alta': 'var(--color-bad)', 'Notícia': 'var(--color-fg-muted)' });
+const corDaFaixa = (faixa, confianca) => (confianca === 'Baixa' ? 'var(--f-baixa)' : 'var(' + ((FAIXAS.find((f) => f.nome === faixa) || {}).cor || '--f-baixa') + ')');
+const faixaDe = (v) => (v <= 20 ? 'Calmo' : v <= 40 ? 'Atenção' : v <= 60 ? 'Tensão' : v <= 80 ? 'Alerta' : 'Crítico');
+const dataBR = (s) => { const t = String(s || '').slice(0, 10); return t.length === 10 ? t.slice(8, 10) + '/' + t.slice(5, 7) + '/' + t.slice(0, 4) : t; };
+const linkSeguro = (url, texto) => {
+  const u = String(url || '');
+  if (!/^https:\/\//.test(u)) return document.createTextNode(String(texto || ''));
+  const a = document.createElement('a'); a.href = u; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = String(texto || ''); return a;
+};
+const falha = (el) => { const p = document.createElement('p'); p.className = 'olho-falha'; const dot = document.createElement('span'); dot.className = 'olho-dot'; p.append(dot, 'Falha ao carregar'); el.replaceChildren(p); };
+const estado = (el, d) => { el.classList.toggle('dash-skeleton', d.status === 'loading'); };
+const pronto = (el, d) => { estado(el, d); if (d.status === 'ok') return true; if (d.status === 'error') falha(el); else el.replaceChildren(); return false; };
+const celula = (tr, valor, classe) => { const td = document.createElement('td'); if (classe) td.className = classe; if (valor instanceof Node) td.append(valor); else td.textContent = valor == null ? '' : String(valor); tr.append(td); return td; };
+const linha = (chave) => { const tr = document.createElement('tr'); tr.dataset.key = chave; return tr; };
+const ordenarData = (a, b) => String(b.data).localeCompare(String(a.data)) || String(a.id).localeCompare(String(b.id));
+const novaDica = () => { const tip = document.createElement('div'); tip.className = 'olho-tip'; tip.hidden = true; return tip; };
+const posicionar = (el, tip, ev, linhas) => {
+  tip.replaceChildren(...linhas.filter((t) => t != null && t !== '').map((t, i) => { const n = document.createElement(i === 0 ? 'strong' : 'div'); n.textContent = t; return n; }));
+  tip.hidden = false;
+  const box = el.getBoundingClientRect();
+  const w = tip.offsetWidth || 200;
+  tip.style.left = Math.max(0, Math.min(box.width - w, ev.clientX - box.left + 12)) + 'px';
+  tip.style.top = Math.max(0, ev.clientY - box.top + 14) + 'px';
+};
+const item = (cor, texto) => { const li = document.createElement('li'); li.style.setProperty('--olho-cor', cor); li.append(document.createElement('span'), texto); return li; };
+const svgNovo = (W, H, rotulo) => d3.create('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', rotulo);
+const texto = (nome, id, campo, filtro, fmt) => dash.draw(nome, (el) => {
+  const d = dash.data(id);
+  estado(el, d);
+  const r = d.status === 'ok' ? (filtro ? d.data.find(filtro) : d.data[0]) : null;
+  el.textContent = r && r[campo] != null && r[campo] !== '' ? (fmt ? fmt(r[campo]) : String(r[campo])) : '—';
+});
+const noHorizonte = (h) => (r) => r.horizonte === h;
+texto('rodada-data', 'rodada', 'data', null, dataBR);
+texto('mundo-medio', 'indice_mundo', 'indice', noHorizonte('medio'));
+texto('mundo-medio-faixa', 'indice_mundo', 'faixa', noHorizonte('medio'));
+texto('mundo-medio-foco', 'indice_mundo', 'foco', noHorizonte('medio'));
+texto('t-guerra', 'resumo', 'em_guerra');
+texto('t-tensao', 'resumo', 'tensao_ou_mais');
+texto('t-conf', 'resumo', 'confirmados');
+texto('t-kits', 'resumo', 'kits_oficiais');
+texto('k-ofic', 'resumo', 'kits_oficiais');
+texto('k-proc', 'resumo', 'kits_procura');
+texto('k-not', 'resumo', 'kits_noticia');
+texto('t-relogio', 'referencias', 'valor', (r) => r.id === 'relogio', (v) => num.format(Number(v)));
+texto('t-brent', 'referencias', 'valor', (r) => r.id === 'brent', (v) => num.format(Number(v)));
+texto('t-hormuz', 'referencias', 'valor', (r) => r.id === 'hormuz', (v) => num.format(Number(v)));
+texto('boletim', 'rodada', 'boletim');
+dash.draw('sel-escala', (el) => { el.textContent = ESCALAS[dash.params().escala] || 'continental'; });
+dash.draw('sel-horizonte', (el) => { el.textContent = HORIZ[dash.params().horizonte] || 'médio'; });
+dash.draw('legenda-faixas', (ul) => {
+  let de = 0;
+  const itens = FAIXAS.map((f) => { const li = item('var(' + f.cor + ')', f.nome + ', ' + de + ' a ' + f.ate); de = f.ate + 1; return li; });
+  ul.replaceChildren(...itens, item('var(--f-baixa)', 'Confiança baixa'));
+});
+
+/* ---------- velocímetros ---------- */
+const desenharGauge = (escala) => dash.draw('gauge-' + escala, (el) => {
+  const d = dash.data('velocimetro');
+  if (!pronto(el, d)) return;
+  const hz = dash.params().horizonte || 'medio';
+  const r = d.data.find((x) => x.escala === escala && x.horizonte === hz);
+  if (!r || r.indice == null) { el.replaceChildren(); return; }
+  const W = 220, H = 126, cx = 110, cy = 116, ro = 100, ri = 76;
+  const ang = (v) => -Math.PI / 2 + (Math.max(0, Math.min(100, v)) / 100) * Math.PI;
+  const svg = svgNovo(W, H, 'Velocímetro de guerra ' + escala);
+  const arco = d3.arc().innerRadius(ri).outerRadius(ro).padAngle(0.012);
+  let de = 0;
+  FAIXAS.forEach((f) => {
+    svg.append('path').attr('transform', `translate(${cx},${cy})`).attr('d', arco({ startAngle: ang(de), endAngle: ang(f.ate) })).style('fill', 'var(' + f.cor + ')').style('opacity', f.nome === r.faixa ? 1 : 0.3);
+    de = f.ate;
+  });
+  const a = ang(Number(r.indice));
+  svg.append('line').attr('x1', cx).attr('y1', cy).attr('x2', cx + (ro - 8) * Math.sin(a)).attr('y2', cy - (ro - 8) * Math.cos(a)).style('stroke', 'var(--color-fg)').style('stroke-width', 3).style('stroke-linecap', 'round');
+  svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 6).style('fill', 'var(--color-fg)');
+  const val = document.createElement('div'); val.className = 'olho-gval';
+  const big = document.createElement('b'); big.className = 'olho-big'; big.textContent = r.indice;
+  const fx = document.createElement('span'); fx.textContent = r.faixa;
+  val.append(big, fx);
+  const v = document.createElement('p'); v.className = 'olho-note';
+  if (r.variacao7 != null) {
+    const seta = document.createElement('span');
+    seta.className = r.variacao7 > 0 ? 'olho-sobe' : r.variacao7 < 0 ? 'olho-desce' : '';
+    seta.textContent = r.variacao7 > 0 ? '▲ ' + r.variacao7 : r.variacao7 < 0 ? '▼ ' + Math.abs(r.variacao7) : 'Estável';
+    v.append(seta, r.variacao7 === 0 ? ' em sete dias' : ' pontos em sete dias');
+  }
+  const fo = document.createElement('p'); fo.className = 'olho-note'; fo.textContent = r.foco ? 'Puxado por ' + r.foco : 'Nenhum país com nota nesta escala';
+  el.replaceChildren(svg.node(), val, v, fo);
+});
+['local', 'continental', 'mundial'].forEach(desenharGauge);
+
+/* ---------- mapa ---------- */
+dash.draw('mapa', (el) => {
+  const g = dash.data('paises');
+  if (!pronto(el, g)) return;
+  const par = dash.params();
+  const camada = el.dataset.camadaFixa || par.camada || 'pressao';
+  const escala = par.escala || 'continental';
+  const horizonte = par.horizonte || 'medio';
+  const ok = (id) => { const d = dash.data(id); return d.status === 'ok' ? d.data : []; };
+  const valores = {};
+  if (camada === 'pressao') {
+    ok('indice_pais').filter((r) => r.escala === escala && r.horizonte === horizonte && r.indice > 0).forEach((r) => {
+      valores[r.iso3] = { fill: corDaFaixa(r.faixa, null), op: r.confianca === 'Baixa' ? 0.45 : 1, linhas: ['Nota ' + r.indice + ', ' + r.faixa, 'Confiança ' + String(r.confianca).toLowerCase() + ', ' + r.sinais + ' sinais'] };
+    });
+  } else if (camada === 'guerras') {
+    ok('conflitos').forEach((r) => { valores[r.iso3] = { fill: COR_STATUS[r.status] || 'var(--terra)', op: 1, linhas: [r.status, r.nota || ('Desde ' + dataBR(r.desde)), 'Fonte: ' + r.fonte_nome] }; });
+  } else if (camada === 'ciber') {
+    const cb = ok('ciber');
+    const ms = cb.filter((r) => r.papel === 'Alvo' && r.valor != null && String(r.unidade).indexOf('Microsoft') >= 0);
+    const max = d3.max(ms, (r) => Number(r.valor)) || 1;
+    cb.filter((r) => r.papel === 'Alvo').forEach((r) => {
+      const pct = r.valor != null && String(r.unidade).indexOf('Microsoft') >= 0 ? 30 + 70 * Number(r.valor) / max : 30;
+      const atual = valores[r.iso3] || { pct: 0, linhas: ['Alvo de ciberataques'] };
+      const p2 = Math.max(pct, atual.pct);
+      atual.linhas.push(r.valor != null ? num.format(Number(r.valor)) + ' ' + r.unidade : r.resumo);
+      valores[r.iso3] = { pct: p2, fill: `color-mix(in srgb, var(--color-bad) ${Math.round(p2)}%, var(--terra))`, op: 1, linhas: atual.linhas };
+    });
+  } else if (camada === 'kits') {
+    ok('kits').filter((r) => r.iso3 && r.tipo === 'Orientação oficial').forEach((r) => { valores[r.iso3] = { fill: `color-mix(in srgb, ${dash.colors[0]} 30%, var(--terra))`, op: 1, linhas: ['Orientação oficial à população'] }; });
+  }
+  const W = 960, H = 500;
+  const tip = novaDica();
+  const svg = svgNovo(W, H, 'Mapa: ' + CAMADAS[camada]);
+  const raiz = svg.append('g');
+  raiz.append('path').attr('d', d3.geoPath(PROJ())({ type: 'Sphere' })).style('fill', 'color-mix(in srgb, var(--color-panel) 55%, var(--color-bg))');
+  raiz.append('g').selectAll('path').data(g.data).join('path').attr('d', (p) => p.d).attr('vector-effect', 'non-scaling-stroke')
+    .style('fill', (p) => (valores[p.iso3] ? valores[p.iso3].fill : 'var(--terra)')).style('fill-opacity', (p) => (valores[p.iso3] ? valores[p.iso3].op : 1))
+    .style('stroke', 'var(--color-panel)').style('stroke-width', 0.6)
+    .on('pointerenter pointermove click', (ev, p) => posicionar(el, tip, ev, [p.nome].concat(valores[p.iso3] ? valores[p.iso3].linhas : ['Sem registro nesta camada'])))
+    .on('pointerleave', () => { tip.hidden = true; });
+  const proj = PROJ();
+  let pins = [];
+  if (camada === 'ciber') {
+    const origens = ok('ciber').filter((r) => r.papel === 'Origem atribuída');
+    const isos = new Set(origens.map((r) => r.iso3));
+    raiz.append('g').selectAll('path').data(g.data.filter((p) => isos.has(p.iso3))).join('path').attr('d', (p) => p.d).attr('vector-effect', 'non-scaling-stroke')
+      .style('fill', 'none').style('stroke', dash.colors[1]).style('stroke-width', 1.8).style('stroke-dasharray', '4 2').style('pointer-events', 'none');
+    pins = origens.map((r) => { const p = g.data.find((x) => x.iso3 === r.iso3); return p && { x: p.cx, y: p.cy, cor: dash.colors[1], losango: true, linhas: [r.pais + ', origem atribuída', r.resumo, 'Fonte: ' + r.fonte_nome] }; }).filter(Boolean);
+  }
+  if (camada === 'kits') {
+    pins = ok('kits').map((r) => { const xy = proj([Number(r.lon), Number(r.lat)]); return xy && { x: xy[0], y: xy[1], cor: corKit()[r.tipo] || 'var(--color-fg)', linhas: [r.local, r.tipo + ', ' + String(r.motivo).toLowerCase(), r.resumo, dataBR(r.data) + ', ' + r.fonte_nome] }; }).filter(Boolean);
+  }
+  const gp = raiz.append('g');
+  const desenharPins = (k) => {
+    gp.selectAll('*').remove();
+    pins.forEach((p) => {
+      const r = 5.5 / k;
+      const n = p.losango ? gp.append('rect').attr('x', p.x - r).attr('y', p.y - r).attr('width', 2 * r).attr('height', 2 * r).attr('transform', `rotate(45 ${p.x} ${p.y})`) : gp.append('circle').attr('cx', p.x).attr('cy', p.y).attr('r', r);
+      n.style('fill', p.cor).style('stroke', 'var(--color-panel)').style('stroke-width', 1.2 / k).style('cursor', 'pointer')
+        .on('pointerenter pointermove click', (ev) => posicionar(el, tip, ev, p.linhas)).on('pointerleave', () => { tip.hidden = true; });
+    });
+  };
+  desenharPins(1);
+  svg.call(d3.zoom().scaleExtent([1, 8]).translateExtent([[0, 0], [W, H]]).on('zoom', (ev) => { raiz.attr('transform', ev.transform); desenharPins(ev.transform.k); }));
+  const leg = document.createElement('ul'); leg.className = 'olho-legenda';
+  if (camada === 'pressao') { let de = 0; FAIXAS.forEach((f) => { leg.append(item('var(' + f.cor + ')', f.nome + ', ' + de + ' a ' + f.ate)); de = f.ate + 1; }); leg.append(item('var(--terra)', 'Sem sinais')); }
+  if (camada === 'guerras') Object.entries(COR_STATUS).forEach(([k, c]) => leg.append(item(c, k)));
+  if (camada === 'ciber') { leg.append(item('var(--color-bad)', 'Alvo, mais escuro com mais ataques')); leg.append(item(dash.colors[1], 'Origem atribuída')); }
+  if (camada === 'kits') Object.entries(corKit()).forEach(([k, c]) => leg.append(item(c, k)));
+  el.replaceChildren(svg.node(), leg, tip);
+});
+
+/* ---------- barras horizontais ---------- */
+const barras = (el, rows, rotulo, linhasDica) => {
+  const W = Math.max(280, el.clientWidth || 600);
+  const passo = 44, topo = 20, H = topo + rows.length * passo + 4, fim = 40;
+  const x = d3.scaleLinear([0, 100], [0, W - fim]);
+  const tip = novaDica();
+  const svg = svgNovo(W, H, rotulo);
+  FAIXAS.slice(0, 4).forEach((f) => {
+    svg.append('line').attr('x1', x(f.ate)).attr('x2', x(f.ate)).attr('y1', topo - 4).attr('y2', H).style('stroke', 'var(--cds-chart-grid)').style('stroke-width', 1);
+    svg.append('text').attr('x', x(f.ate)).attr('y', 11).attr('text-anchor', 'middle').style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text(f.ate);
+  });
+  const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0, ${topo + i * passo})`);
+  g.append('text').attr('y', 12).style('fill', 'var(--color-fg)').style('font-size', 'var(--cds-font-size-caption)').text((r) => r.nome);
+  g.append('rect').attr('y', 18).attr('height', 16).attr('rx', 3).attr('width', (r) => Math.max(2, x(r.indice))).style('fill', (r) => corDaFaixa(r.faixa, r.confianca));
+  g.append('text').attr('x', (r) => Math.min(x(r.indice) + 6, W - fim + 6)).attr('y', 31).style('fill', 'var(--color-fg)').style('font-size', 'var(--cds-font-size-caption)').style('font-variant-numeric', 'tabular-nums').text((r) => r.indice);
+  g.append('rect').attr('width', W).attr('height', passo).style('fill', 'transparent')
+    .on('pointerenter pointermove click', (ev, r) => posicionar(el, tip, ev, linhasDica(r))).on('pointerleave', () => { tip.hidden = true; });
+  el.replaceChildren(svg.node(), tip);
+};
+dash.draw('ranking-paises', (el) => {
+  const d = dash.data('indice_pais');
+  if (!pronto(el, d)) return;
+  const par = dash.params();
+  const rows = d.data.filter((r) => r.escala === (par.escala || 'continental') && r.horizonte === (par.horizonte || 'medio') && r.indice > 0)
+    .sort((a, b) => b.indice - a.indice || String(a.nome).localeCompare(String(b.nome))).slice(0, 15);
+  barras(el, rows, 'Países por nota', (r) => [r.nome, 'Nota ' + r.indice + ', ' + r.faixa, 'Confiança ' + String(r.confianca).toLowerCase() + ', ' + r.sinais + ' sinais, ' + r.confirmados + ' confirmados', r.variacao7 == null ? '' : 'Variação em sete dias: ' + (r.variacao7 > 0 ? '+' : '') + r.variacao7]);
+});
+
+/* ---------- linhas no tempo ---------- */
+const linhasTempo = (el, series, rotulo, tipDia) => {
+  const dias = Array.from(new Set(series.flatMap((s) => s.pts.map((p) => p.d)))).sort();
+  if (!dias.length) { el.replaceChildren(); return; }
+  const parse = (d) => new Date(String(d).slice(0, 10) + 'T00:00:00Z');
+  const tempos = dias.map((d) => parse(d).getTime());
+  const W = Math.max(280, el.clientWidth || 600);
+  const m = { l: 30, r: 12, t: 8, b: 24 };
+  const H = 260;
+  const x = d3.scaleUtc([parse(dias[0]), parse(dias[dias.length - 1])], [m.l, W - m.r]);
+  const y = d3.scaleLinear([0, 100], [H - m.b, m.t]);
+  const tip = novaDica();
+  const svg = svgNovo(W, H, rotulo);
+  let de = 0;
+  FAIXAS.forEach((f) => { svg.append('rect').attr('x', m.l).attr('width', W - m.l - m.r).attr('y', y(f.ate)).attr('height', y(de) - y(f.ate)).style('fill', 'var(' + f.cor + ')').style('opacity', 0.08); de = f.ate; });
+  [0].concat(FAIXAS.map((f) => f.ate)).forEach((v) => {
+    svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(v)).attr('y2', y(v)).style('stroke', 'var(--cds-chart-grid)');
+    svg.append('text').attr('x', m.l - 6).attr('y', y(v) + 4).attr('text-anchor', 'end').style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text(v);
+  });
+  const traco = d3.line().defined((p) => p.v != null).x((p) => x(parse(p.d))).y((p) => y(p.v));
+  series.forEach((s) => svg.append('path').attr('d', traco(s.pts)).style('fill', 'none').style('stroke', s.cor).style('stroke-width', 2).style('stroke-linejoin', 'round').style('stroke-linecap', 'round'));
+  x.ticks(W < 460 ? 4 : 7).forEach((t) => svg.append('text').attr('x', x(t)).attr('y', H - 6).attr('text-anchor', 'middle').style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text(d3.utcFormat('%d/%m')(t)));
+  const regra = svg.append('line').attr('y1', m.t).attr('y2', H - m.b).style('stroke', 'var(--cds-chart-reference)').style('opacity', 0);
+  svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', H - m.t - m.b).style('fill', 'transparent')
+    .on('pointerenter pointermove', (ev) => {
+      const [px] = d3.pointer(ev, svg.node());
+      const i = Math.max(0, Math.min(dias.length - 1, d3.bisectCenter(tempos, x.invert(px).getTime())));
+      const xi = x(parse(dias[i]));
+      regra.attr('x1', xi).attr('x2', xi).style('opacity', 1);
+      posicionar(el, tip, ev, tipDia(dias[i], i));
+    })
+    .on('pointerleave', () => { tip.hidden = true; regra.style('opacity', 0); });
+  return { svg, x, y, dias, parse, tip, W, H, m };
+};
+dash.draw('continentes-chart', (el) => {
+  const d = dash.data('serie_continente');
+  if (!pronto(el, d)) return;
+  const hz = dash.params().horizonte || 'medio';
+  const rows = d.data.filter((r) => r.horizonte === hz);
+  const conts = Array.from(new Set(rows.map((r) => r.continente))).sort();
+  const dias = Array.from(new Set(rows.map((r) => r.dia))).sort();
+  const series = conts.map((c) => ({ nome: c, cor: COR_CONT[c] || COR_CONT['Sem continente'], pts: dias.map((dd) => { const r = rows.find((x) => x.dia === dd && x.continente === c); return { d: dd, v: r ? r.indice : null }; }) }));
+  const res = linhasTempo(el, series, 'Guerras locais por continente', (dia, i) => [dataBR(dia)].concat(series.map((s) => s.nome + ': ' + (s.pts[i].v == null ? 'sem nota' : s.pts[i].v))));
+  if (res) el.replaceChildren(res.svg.node(), res.tip);
+});
+dash.draw('continentes-legenda', (ul) => {
+  const d = dash.data('serie_continente');
+  const hz = dash.params().horizonte || 'medio';
+  if (d.status !== 'ok') { ul.replaceChildren(); return; }
+  const rows = d.data.filter((r) => r.horizonte === hz);
+  const ultimo = Array.from(new Set(rows.map((r) => r.dia))).sort().pop();
+  ul.replaceChildren(...rows.filter((r) => r.dia === ultimo).sort((a, b) => b.indice - a.indice).map((r) => item(COR_CONT[r.continente] || COR_CONT['Sem continente'], r.continente + ' ' + r.indice)));
+});
+dash.draw('multiplos', (el) => {
+  const s = dash.data('serie_pais');
+  const ip = dash.data('indice_pais');
+  estado(el, s);
+  if (s.status !== 'ok' || ip.status !== 'ok') { if (s.status === 'error' || ip.status === 'error') falha(el); else el.replaceChildren(); return; }
+  const hz = dash.params().horizonte || 'medio';
+  const topo = ip.data.filter((r) => r.escala === 'local' && r.horizonte === hz && r.indice > 0).sort((a, b) => b.indice - a.indice || String(a.nome).localeCompare(String(b.nome))).slice(0, 12);
+  el.replaceChildren(...topo.map((r) => {
+    const pts = s.data.filter((x) => x.iso3 === r.iso3 && x.escala === 'local' && x.horizonte === hz).sort((a, b) => a.dia.localeCompare(b.dia));
+    const box = document.createElement('div'); box.className = 'olho-mini';
+    const nome = document.createElement('p'); nome.textContent = r.nome;
+    const val = document.createElement('p');
+    const b = document.createElement('b'); b.className = 'olho-big'; b.style.fontSize = 'var(--cds-font-size-heading)'; b.textContent = r.indice;
+    const seta = document.createElement('span');
+    seta.className = r.variacao7 > 0 ? 'olho-sobe' : r.variacao7 < 0 ? 'olho-desce' : '';
+    seta.textContent = r.variacao7 == null ? '' : r.variacao7 > 0 ? ' ▲ ' + r.variacao7 : r.variacao7 < 0 ? ' ▼ ' + Math.abs(r.variacao7) : ' estável';
+    val.append(b, seta);
+    const W = 140, H = 36;
+    const x = d3.scaleLinear([0, Math.max(1, pts.length - 1)], [2, W - 2]);
+    const y = d3.scaleLinear([0, 100], [H - 2, 2]);
+    const svg = d3.create('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('preserveAspectRatio', 'none').attr('role', 'img').attr('aria-label', 'Evolução de ' + r.nome);
+    svg.append('path').attr('d', d3.area().x((p, i) => x(i)).y0(H - 2).y1((p) => y(p.indice))(pts)).style('fill', corDaFaixa(r.faixa, null)).style('opacity', 0.18);
+    svg.append('path').attr('d', d3.line().x((p, i) => x(i)).y((p) => y(p.indice))(pts)).style('fill', 'none').style('stroke', corDaFaixa(r.faixa, null)).style('stroke-width', 1.8).attr('vector-effect', 'non-scaling-stroke');
+    box.append(nome, val, svg.node());
+    return box;
+  }));
+});
+dash.draw('pais-sel', (sel) => {
+  const d = dash.data('indice_pais');
+  const rows = d.status === 'ok' ? Array.from(new Map(d.data.map((r) => [r.iso3, r.nome])).entries()).sort((a, b) => a[1].localeCompare(b[1])) : [];
+  sel.replaceChildren(...rows.map(([iso, nome]) => new Option(nome, iso)));
+  sel.value = dash.params().pais || 'RUS';
+  sel.onchange = () => dash.setParams({ pais: sel.value });
+});
+dash.draw('matriz', (el) => {
+  const d = dash.data('indice_pais');
+  if (!pronto(el, d)) return;
+  const iso = dash.params().pais || 'RUS';
+  const cab = (t) => { const c = document.createElement('div'); c.className = 'olho-cab'; c.textContent = t; return c; };
+  const cels = [cab('')];
+  Object.values(HORIZ).forEach((h) => cels.push(cab('Horizonte ' + h)));
+  Object.keys(ESCALAS).slice().reverse().forEach((e) => {
+    cels.push(cab(ESCALAS[e].charAt(0).toUpperCase() + ESCALAS[e].slice(1)));
+    Object.keys(HORIZ).forEach((h) => {
+      const r = d.data.find((x) => x.iso3 === iso && x.escala === e && x.horizonte === h);
+      const c = document.createElement('div'); c.className = 'olho-cel';
+      if (r) {
+        c.style.setProperty('--olho-cor', corDaFaixa(r.faixa, r.confianca));
+        const b = document.createElement('b'); b.className = 'olho-big'; b.textContent = r.indice;
+        const f = document.createElement('div'); f.textContent = r.faixa;
+        c.append(b, f);
+      }
+      cels.push(c);
+    });
+  });
+  el.replaceChildren(...cels);
+});
+
+/* ---------- série diária geral ---------- */
+const SERIES = () => [
+  { id: 'mundial', nome: 'Mundial', cor: dash.colors[0] },
+  { id: 'continental', nome: 'Continental', cor: dash.colors[1] },
+  { id: 'local', nome: 'Local', cor: dash.colors[2] },
+];
+dash.draw('serie-legenda', (ul) => {
+  const s = dash.data('serie');
+  const hz = dash.params().horizonte || 'medio';
+  const dias = s.status === 'ok' ? Array.from(new Set(s.data.map((r) => r.dia))).sort() : [];
+  const ultimo = dias[dias.length - 1];
+  const itens = SERIES().map((e) => { const r = s.status === 'ok' ? s.data.find((x) => x.dia === ultimo && x.escala === e.id && x.horizonte === hz) : null; return item(e.cor, e.nome + (r ? ' ' + r.indice : '')); });
+  ul.replaceChildren(...itens, item('var(--color-bad)', 'Sinais de escalada'), item('var(--color-ok)', 'Sinais de distensão'));
+});
+dash.draw('serie-chart', (el) => {
+  const s = dash.data('serie');
+  const b = dash.data('saldo');
+  const h = dash.data('historico');
+  estado(el, s);
+  if (s.status !== 'ok' || b.status !== 'ok') { if (s.status === 'error' || b.status === 'error') falha(el); else el.replaceChildren(); return; }
+  const hz = dash.params().horizonte || 'medio';
+  const dias = Array.from(new Set(s.data.map((r) => r.dia))).sort();
+  if (!dias.length) { el.replaceChildren(); return; }
+  const parse = (d) => new Date(String(d).slice(0, 10) + 'T00:00:00Z');
+  const tempos = dias.map((d) => parse(d).getTime());
+  const W = Math.max(280, el.clientWidth || 600);
+  const m = { l: 30, r: 12, t: 8 };
+  const H1 = 210, gap = 34, H2 = 70, H = m.t + H1 + gap + H2 + 24;
+  const x = d3.scaleUtc([parse(dias[0]), parse(dias[dias.length - 1])], [m.l, W - m.r]);
+  const y = d3.scaleLinear([0, 100], [m.t + H1, m.t]);
+  const series = SERIES().map((e) => ({ ...e, pts: dias.map((d) => { const r = s.data.find((x2) => x2.dia === d && x2.escala === e.id && x2.horizonte === hz); return { d, v: r ? Number(r.indice) : null, foco: r ? r.foco : null }; }) }));
+  const tip = novaDica();
+  const svg = svgNovo(W, H, 'Pressão de guerra dia a dia');
+  let de = 0;
+  FAIXAS.forEach((f) => { svg.append('rect').attr('x', m.l).attr('width', W - m.l - m.r).attr('y', y(f.ate)).attr('height', y(de) - y(f.ate)).style('fill', 'var(' + f.cor + ')').style('opacity', 0.08); de = f.ate; });
+  [0].concat(FAIXAS.map((f) => f.ate)).forEach((v) => {
+    svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(v)).attr('y2', y(v)).style('stroke', 'var(--cds-chart-grid)');
+    svg.append('text').attr('x', m.l - 6).attr('y', y(v) + 4).attr('text-anchor', 'end').style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text(v);
+  });
+  const traco = d3.line().defined((p) => p.v != null).x((p) => x(parse(p.d))).y((p) => y(p.v));
+  series.slice().reverse().forEach((e) => svg.append('path').attr('d', traco(e.pts)).style('fill', 'none').style('stroke', e.cor).style('stroke-width', 2).style('stroke-linecap', 'round').style('stroke-linejoin', 'round'));
+  if (h.status === 'ok') {
+    h.data.filter((r) => r.horizonte === hz && dias.includes(String(r.data).slice(0, 10))).forEach((r) => {
+      const e = series.find((e2) => e2.id === r.escala);
+      if (e) svg.append('circle').attr('cx', x(parse(r.data))).attr('cy', y(Number(r.indice))).attr('r', 4.5).style('fill', 'var(--color-panel)').style('stroke', e.cor).style('stroke-width', 2);
+    });
+  }
+  const yb0 = m.t + H1 + gap, yb1 = yb0 + H2;
+  const maxAbs = Math.max(0.5, d3.max(b.data, (r) => Math.max(Number(r.escalada), -Number(r.distensao))) || 0.5);
+  const yb = d3.scaleLinear([-maxAbs, maxAbs], [yb1, yb0]);
+  const bw = Math.max(2, Math.min(12, (W - m.l - m.r) / dias.length - 2));
+  svg.append('text').attr('x', m.l).attr('y', yb0 - 10).style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text('Saldo dos sinais do dia');
+  b.data.forEach((r) => {
+    const cx = x(parse(r.dia));
+    const up = Number(r.escalada), down = Number(r.distensao);
+    if (up > 0) svg.append('rect').attr('x', cx - bw / 2).attr('width', bw).attr('y', yb(up)).attr('height', yb(0) - yb(up)).attr('rx', 2).style('fill', 'var(--color-bad)').style('opacity', 0.75);
+    if (down < 0) svg.append('rect').attr('x', cx - bw / 2).attr('width', bw).attr('y', yb(0)).attr('height', yb(down) - yb(0)).attr('rx', 2).style('fill', 'var(--color-ok)').style('opacity', 0.75);
+  });
+  svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', yb(0)).attr('y2', yb(0)).style('stroke', 'var(--cds-chart-axis)');
+  x.ticks(W < 460 ? 4 : 7).forEach((t) => svg.append('text').attr('x', x(t)).attr('y', yb1 + 18).attr('text-anchor', 'middle').style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text(d3.utcFormat('%d/%m')(t)));
+  const regra = svg.append('line').attr('y1', m.t).attr('y2', yb1).style('stroke', 'var(--cds-chart-reference)').style('opacity', 0);
+  svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', yb1 - m.t).style('fill', 'transparent')
+    .on('pointerenter pointermove', (ev) => {
+      const [px] = d3.pointer(ev, svg.node());
+      const i = Math.max(0, Math.min(dias.length - 1, d3.bisectCenter(tempos, x.invert(px).getTime())));
+      const xi = x(parse(dias[i]));
+      regra.attr('x1', xi).attr('x2', xi).style('opacity', 1);
+      const sd = b.data.find((r) => r.dia === dias[i]) || { sinais: 0, escalada: 0, distensao: 0 };
+      posicionar(el, tip, ev, [dataBR(dias[i])].concat(series.map((e) => e.nome + ': ' + (e.pts[i].v == null ? 'sem nota' : e.pts[i].v + (e.pts[i].foco ? ', ' + e.pts[i].foco : '')))).concat([Number(sd.sinais) + ' sinais no dia']));
+    })
+    .on('pointerleave', () => { tip.hidden = true; regra.style('opacity', 0); });
+  el.replaceChildren(svg.node(), tip);
+});
+
+/* ---------- kits ---------- */
+dash.draw('kits-barras', (el) => {
+  const d = dash.data('kits');
+  if (!pronto(el, d)) return;
+  const tipos = Object.keys(corKit());
+  const grupos = {};
+  d.data.forEach((r) => { const nome = r.nivel === 'Cidade' && r.local.indexOf(',') >= 0 ? r.local.split(',').pop().trim() : r.local; grupos[nome] = grupos[nome] || {}; grupos[nome][r.tipo] = (grupos[nome][r.tipo] || 0) + 1; });
+  const rows = Object.entries(grupos).map(([nome, c]) => ({ nome, c, total: tipos.reduce((a, t) => a + (c[t] || 0), 0) })).sort((a, b) => b.total - a.total || a.nome.localeCompare(b.nome));
+  const W = Math.max(280, el.clientWidth || 600);
+  const passo = 22, H = rows.length * passo + 8, rot = Math.min(150, W * 0.38);
+  const x = d3.scaleLinear([0, d3.max(rows, (r) => r.total) || 1], [rot, W - 24]);
+  const tip = novaDica();
+  const svg = svgNovo(W, H, 'Registros de kits por país');
+  rows.forEach((r, i) => {
+    const yy = i * passo + 4;
+    svg.append('text').attr('x', rot - 6).attr('y', yy + 13).attr('text-anchor', 'end').style('fill', 'var(--color-fg)').style('font-size', 'var(--cds-font-size-caption)').text(r.nome.length > 22 ? r.nome.slice(0, 21) + '…' : r.nome);
+    let acc = 0;
+    tipos.forEach((t) => {
+      const n = r.c[t] || 0; if (!n) return;
+      svg.append('rect').attr('x', x(acc)).attr('y', yy + 2).attr('width', Math.max(2, x(acc + n) - x(acc) - 1)).attr('height', passo - 6).attr('rx', 2).style('fill', corKit()[t])
+        .on('pointerenter pointermove click', (ev) => posicionar(el, tip, ev, [r.nome, t + ': ' + n])).on('pointerleave', () => { tip.hidden = true; });
+      acc += n;
+    });
+    svg.append('text').attr('x', x(acc) + 4).attr('y', yy + 13).style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text(r.total);
+  });
+  const leg = document.createElement('ul'); leg.className = 'olho-legenda';
+  tipos.forEach((t) => leg.append(item(corKit()[t], t)));
+  el.replaceChildren(leg, svg.node(), tip);
+});
+dash.draw('kits-linha', (el) => {
+  const d = dash.data('kits');
+  if (!pronto(el, d)) return;
+  const tipos = Object.keys(corKit());
+  const parse = (s) => new Date(String(s).slice(0, 10) + 'T00:00:00Z');
+  const W = Math.max(280, el.clientWidth || 600);
+  const m = { l: 8, r: 12, t: 10, b: 24 }, faixaH = 48, H = m.t + tipos.length * faixaH + m.b;
+  const ext = d3.extent(d.data, (r) => parse(r.data));
+  const x = d3.scaleUtc([d3.utcDay.offset(ext[0], -5), d3.utcDay.offset(ext[1], 5)], [m.l, W - m.r]);
+  const tip = novaDica();
+  const svg = svgNovo(W, H, 'Linha do tempo dos kits');
+  tipos.forEach((t, i) => {
+    const yy = m.t + i * faixaH;
+    svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', yy + faixaH / 2).attr('y2', yy + faixaH / 2).style('stroke', 'var(--cds-chart-grid)');
+    svg.append('text').attr('x', m.l).attr('y', yy + 10).style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text(t);
+    const doTipo = d.data.filter((r) => r.tipo === t).sort((a, b) => String(a.data).localeCompare(String(b.data)));
+    const contagem = {};
+    doTipo.forEach((r) => {
+      const k = String(r.data).slice(0, 10); contagem[k] = (contagem[k] || 0) + 1;
+      const dy = ((contagem[k] - 1) % 3 - 1) * 9;
+      svg.append('circle').attr('cx', x(parse(r.data))).attr('cy', yy + faixaH / 2 + 4 + dy).attr('r', 5).style('fill', corKit()[t]).style('stroke', 'var(--color-panel)').style('stroke-width', 1).style('cursor', 'pointer')
+        .on('pointerenter pointermove click', (ev) => posicionar(el, tip, ev, [r.local, dataBR(r.data), r.resumo])).on('pointerleave', () => { tip.hidden = true; });
+    });
+  });
+  x.ticks(W < 460 ? 3 : 6).forEach((t) => svg.append('text').attr('x', x(t)).attr('y', H - 6).attr('text-anchor', 'middle').style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text(d3.utcFormat('%m/%Y')(t)));
+  el.replaceChildren(svg.node(), tip);
+});
+dash.draw('kits-body', (tb) => {
+  const d = dash.data('kits');
+  if (d.status !== 'ok') { tb.replaceChildren(); return; }
+  tb.replaceChildren(...d.data.slice().sort(ordenarData).map((r) => { const tr = linha(r.id); celula(tr, r.local); celula(tr, r.tipo); celula(tr, r.motivo); celula(tr, dataBR(r.data), 'olho-num'); celula(tr, linkSeguro(r.url, r.fonte_nome)); return tr; }));
+});
+
+/* ---------- ciber ---------- */
+dash.draw('ciber-barras', (el) => {
+  const d = dash.data('ciber');
+  if (!pronto(el, d)) return;
+  const rows = d.data.filter((r) => r.papel === 'Alvo' && r.valor != null && String(r.unidade).indexOf('Microsoft') >= 0).sort((a, b) => b.valor - a.valor);
+  const W = Math.max(280, el.clientWidth || 600);
+  const passo = 24, H = rows.length * passo + 8, rot = Math.min(130, W * 0.34);
+  const x = d3.scaleLinear([0, d3.max(rows, (r) => Number(r.valor)) || 1], [rot, W - 44]);
+  const svg = svgNovo(W, H, 'Países mais atingidos por ciberataques');
+  rows.forEach((r, i) => {
+    const yy = i * passo + 4;
+    svg.append('text').attr('x', rot - 6).attr('y', yy + 14).attr('text-anchor', 'end').style('fill', 'var(--color-fg)').style('font-size', 'var(--cds-font-size-caption)').text(r.pais);
+    svg.append('rect').attr('x', rot).attr('y', yy + 3).attr('width', Math.max(2, x(Number(r.valor)) - rot)).attr('height', passo - 8).attr('rx', 2).style('fill', 'var(--color-bad)').style('opacity', 0.35 + 0.65 * Number(r.valor) / (rows[0] ? rows[0].valor : 1));
+    svg.append('text').attr('x', x(Number(r.valor)) + 4).attr('y', yy + 14).style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text(num.format(Number(r.valor)) + '%');
+  });
+  el.replaceChildren(svg.node());
+});
+dash.draw('ciber-origens', (ul) => {
+  const d = dash.data('ciber');
+  if (d.status !== 'ok') { ul.replaceChildren(); return; }
+  ul.replaceChildren(...d.data.filter((r) => r.papel === 'Origem atribuída').map((r) => { const li = document.createElement('li'); li.textContent = r.pais + ', ' + r.admiralty; li.title = r.resumo; return li; }));
+});
+dash.draw('ciber-body', (tb) => {
+  const d = dash.data('ciber');
+  if (d.status !== 'ok') { tb.replaceChildren(); return; }
+  tb.replaceChildren(...d.data.map((r) => { const tr = linha(r.id); celula(tr, r.pais); celula(tr, r.papel); celula(tr, r.resumo, 'olho-texto'); celula(tr, linkSeguro(r.url, r.fonte_nome)); return tr; }));
+});
+
+/* ---------- mapa mental ---------- */
+dash.draw('arvore', (el) => {
+  const d = dash.data('gatilhos');
+  if (!pronto(el, d)) return;
+  const raiz = d3.stratify().id((r) => r.id).parentId((r) => r.pai || null)(d.data.map((r) => ({ ...r })));
+  raiz.sort((a, b) => (b.data.valor || 0) - (a.data.valor || 0) || String(a.data.nome).localeCompare(String(b.data.nome)));
+  const folhas = raiz.leaves().length;
+  const W = Math.max(340, el.clientWidth || 700);
+  const passo = 24, H = folhas * passo + 30;
+  const col = [12, Math.max(118, W * 0.26), Math.max(250, W * 0.6)];
+  d3.cluster().size([H - 30, 1])(raiz);
+  const yy = (n) => n.x + 15;
+  const tip = novaDica();
+  const svg = svgNovo(W, H, 'Mapa mental dos gatilhos de guerra');
+  svg.append('g').selectAll('path').data(raiz.links()).join('path')
+    .attr('d', d3.linkHorizontal().x((n) => col[n.depth]).y((n) => yy(n)))
+    .style('fill', 'none').style('stroke', (l) => (l.target.data.faixa ? corDaFaixa(l.target.data.faixa, null) : 'var(--cds-chart-grid)')).style('stroke-opacity', 0.55).style('stroke-width', (l) => 1 + (l.target.data.valor || 0) / 40);
+  const nos = svg.append('g').selectAll('g').data(raiz.descendants()).join('g').attr('transform', (n) => `translate(${col[n.depth]},${yy(n)})`).style('cursor', 'pointer')
+    .on('pointerenter pointermove click', (ev, n) => posicionar(el, tip, ev, [n.data.nome, n.data.valor == null ? '' : 'Termômetro ' + n.data.valor + ', ' + n.data.faixa, n.data.detalhe]))
+    .on('pointerleave', () => { tip.hidden = true; });
+  nos.append('circle').attr('r', (n) => (n.depth === 0 ? 8 : 3.5 + (n.data.valor || 0) / 18))
+    .style('fill', (n) => (n.data.faixa ? corDaFaixa(n.data.faixa, null) : 'var(--color-fg)')).style('stroke', 'var(--color-panel)').style('stroke-width', 1.5);
+  const largura = (n) => (n.depth === 2 ? W - col[2] - 16 : n.depth === 1 ? col[2] - col[1] - 14 : col[1] - col[0] - 10);
+  nos.append('text').attr('x', (n) => (n.depth === 2 ? 10 : 0)).attr('y', (n) => (n.depth === 2 ? 4 : -9)).attr('text-anchor', 'start')
+    .style('font-size', 'var(--cds-font-size-caption)').style('fill', 'var(--color-fg)').style('font-weight', (n) => (n.depth < 2 ? 600 : 400))
+    .style('paint-order', 'stroke').style('stroke', 'var(--color-panel)').style('stroke-width', 3).style('stroke-linejoin', 'round')
+    .text((n) => { const t = String(n.data.nome) + (n.depth === 2 && n.data.valor != null ? ' ' + n.data.valor : ''); const max = Math.max(6, Math.floor(largura(n) / 6.4)); return t.length > max ? t.slice(0, max - 1) + '…' : t; });
+  el.replaceChildren(svg.node(), tip);
+});
+
+/* ---------- alianças ---------- */
+dash.draw('rede', (el) => {
+  const d = dash.data('aliancas');
+  if (!pronto(el, d)) return;
+  const W = Math.max(300, el.clientWidth || 600);
+  const H = W < 560 ? 560 : 480;
+  const nos = Array.from(new Set(d.data.flatMap((r) => [r.ator_a, r.ator_b]))).map((id) => ({ id }));
+  const arestas = d.data.map((r) => ({ source: r.ator_a, target: r.ator_b, r }));
+  const sim = d3.forceSimulation(nos).force('link', d3.forceLink(arestas).id((n) => n.id).distance(W < 560 ? 60 : 85)).force('charge', d3.forceManyBody().strength(-260))
+    .force('x', d3.forceX(W / 2).strength(0.07)).force('y', d3.forceY(H / 2).strength(0.09)).force('collide', d3.forceCollide(36)).stop();
+  for (let i = 0; i < 400; i += 1) sim.tick();
+  nos.forEach((n) => { n.x = Math.max(62, Math.min(W - 62, n.x)); n.y = Math.max(22, Math.min(H - 22, n.y)); });
+  const COR = { 'Aliança': 'var(--color-ok)', 'Diálogo': 'var(--color-fg-muted)', 'Atrito': 'var(--color-warn)', 'Hostilidade': 'var(--color-bad)' };
+  const tip = novaDica();
+  const svg = svgNovo(W, H, 'Rede de alianças e desavenças');
+  const ligas = svg.append('g').selectAll('g').data(arestas).join('g');
+  ligas.append('line').attr('x1', (a) => a.source.x).attr('y1', (a) => a.source.y).attr('x2', (a) => a.target.x).attr('y2', (a) => a.target.y)
+    .style('stroke', (a) => COR[a.r.tipo] || 'var(--color-fg-muted)').style('stroke-width', 2.5).style('stroke-linecap', 'round').style('stroke-dasharray', (a) => (a.r.tipo === 'Diálogo' ? '5 4' : null));
+  ligas.append('line').attr('x1', (a) => a.source.x).attr('y1', (a) => a.source.y).attr('x2', (a) => a.target.x).attr('y2', (a) => a.target.y)
+    .style('stroke', 'transparent').style('stroke-width', 14).style('cursor', 'pointer')
+    .on('pointerenter pointermove click', (ev, a) => posicionar(el, tip, ev, [a.r.ator_a + ' e ' + a.r.ator_b, a.r.tipo, a.r.nota])).on('pointerleave', () => { tip.hidden = true; });
+  const nodos = svg.append('g').selectAll('g').data(nos).join('g').attr('transform', (n) => `translate(${n.x},${n.y})`);
+  nodos.append('circle').attr('r', 5).style('fill', 'var(--color-fg)');
+  nodos.append('text').attr('y', -9).attr('text-anchor', 'middle').style('font-size', 'var(--cds-font-size-caption)').style('fill', 'var(--color-fg)')
+    .style('paint-order', 'stroke').style('stroke', 'var(--color-panel)').style('stroke-width', 3).style('stroke-linejoin', 'round').text((n) => n.id);
+  el.replaceChildren(svg.node(), tip);
+});
+dash.draw('relacoes-body', (tb) => {
+  const d = dash.data('aliancas');
+  if (d.status !== 'ok') { tb.replaceChildren(); return; }
+  tb.replaceChildren(...d.data.map((r) => { const tr = linha(r.id); celula(tr, r.ator_a); celula(tr, r.ator_b); celula(tr, r.tipo); celula(tr, r.nota, 'olho-texto'); celula(tr, linkSeguro(r.url, r.fonte_nome)); return tr; }));
+});
+
+/* ---------- portais ---------- */
+dash.draw('portais', (el) => {
+  const d = dash.data('portais');
+  if (!pronto(el, d)) return;
+  const cats = Array.from(new Set(d.data.map((r) => r.categoria)));
+  el.replaceChildren(...cats.map((c) => {
+    const sec = document.createElement('div');
+    const h = document.createElement('h3'); h.textContent = c;
+    const grade = document.createElement('div'); grade.className = 'olho-portais-grade';
+    d.data.filter((r) => r.categoria === c).forEach((r) => {
+      const a = linkSeguro(r.url, '');
+      if (a.tagName !== 'A') return;
+      a.className = 'olho-portal'; a.title = r.alcance;
+      const b = document.createElement('b'); b.textContent = r.nota; b.style.setProperty('--olho-cor', NOTA_COR[r.nota] || 'var(--f-baixa)');
+      const s = document.createElement('span'); s.textContent = r.nome;
+      a.append(b, s);
+      grade.append(a);
+    });
+    sec.append(h, grade);
+    return sec;
+  }));
+});
+
+/* ---------- fichas ---------- */
+dash.draw('feed-body', (tb) => {
+  const d = dash.data('sinais');
+  if (d.status !== 'ok') { tb.replaceChildren(); return; }
+  const fam = dash.params().familia || '';
+  tb.replaceChildren(...d.data.filter((s) => !fam || s.familia === fam).sort(ordenarData).map((s) => {
+    const tr = linha(s.id);
+    celula(tr, dataBR(s.data), 'olho-num'); celula(tr, s.foco); celula(tr, s.familia_nome); celula(tr, s.titulo, 'olho-texto');
+    celula(tr, s.admiralty); celula(tr, s.intensidade, 'olho-num'); celula(tr, linkSeguro(s.url, s.fonte_nome)); celula(tr, s.contraditor, 'olho-texto');
+    return tr;
+  }));
+});
+
+/* ---------- rádios ---------- */
+const horaBR = (iso) => { try { return new Date(iso).toLocaleString('pt-BR', { timeZone: 'America/Fortaleza', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }); } catch (e) { return String(iso || ''); } };
+const corBoletim = (b) => (!b ? 'transparent' : !b.fala_de_guerra ? 'var(--terra)' : Number(b.intensidade) >= 3 ? 'var(--f-alerta)' : Number(b.intensidade) === 2 ? 'var(--f-tensao)' : 'var(--f-atencao)');
+const aviso = (el, txt) => { const p = document.createElement('p'); p.className = 'olho-falha'; p.textContent = txt; el.replaceChildren(p); };
+texto('r-total', 'radios_resumo', 'monitoradas');
+texto('r-ar', 'radios_resumo', 'no_ar');
+texto('r-guerra', 'radios_resumo', 'falando');
+texto('r-bol', 'radios_resumo', 'boletins');
+dash.draw('radios-faixa', (el) => {
+  const r = dash.data('radios');
+  const b = dash.data('boletins');
+  estado(el, r);
+  if (r.status !== 'ok' || b.status !== 'ok') { if (r.status === 'error' || b.status === 'error') falha(el); else el.replaceChildren(); return; }
+  if (!b.data.length) { aviso(el, 'Aguardando o primeiro boletim gravado pela rotina de rádios.'); return; }
+  const slots = Array.from(new Set(b.data.map((x) => String(x.data_hora).slice(0, 13)))).sort().slice(-28);
+  const W = Math.max(300, el.clientWidth || 600);
+  const rot = Math.min(150, W * 0.36);
+  const lado = Math.max(8, Math.min(22, (W - rot - 8) / slots.length - 3));
+  const passo = lado + 6, H = r.data.length * passo + 28;
+  const tip = novaDica();
+  const svg = svgNovo(W, H, 'Boletins por rádio');
+  r.data.forEach((radio, i) => {
+    const y = i * passo + 4;
+    svg.append('text').attr('x', rot - 8).attr('y', y + lado * 0.75).attr('text-anchor', 'end').style('fill', 'var(--color-fg)').style('font-size', 'var(--cds-font-size-caption)').text(radio.nome.length > 24 ? radio.nome.slice(0, 23) + '…' : radio.nome);
+    slots.forEach((s, j) => {
+      const bol = b.data.find((x) => x.radio_id === radio.id && String(x.data_hora).slice(0, 13) === s);
+      svg.append('rect').attr('x', rot + j * (lado + 3)).attr('y', y).attr('width', lado).attr('height', lado).attr('rx', 3)
+        .style('fill', corBoletim(bol)).style('stroke', bol ? 'none' : 'var(--cds-chart-grid)')
+        .on('pointerenter pointermove click', (ev) => posicionar(el, tip, ev, [radio.nome, bol ? horaBR(bol.data_hora) : 'Sem boletim gravado neste horário', bol ? (bol.fala_de_guerra ? 'Falou de guerra' : 'Sem menção a guerra') : '', bol ? bol.resumo : '']))
+        .on('pointerleave', () => { tip.hidden = true; });
+    });
+  });
+  const rotulo = (s) => horaBR(s + ':00:00Z');
+  svg.append('text').attr('x', rot).attr('y', H - 6).style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text(rotulo(slots[0]));
+  if (slots.length > 1) svg.append('text').attr('x', rot + (slots.length - 1) * (lado + 3) + lado).attr('y', H - 6).attr('text-anchor', 'end').style('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text(rotulo(slots[slots.length - 1]));
+  el.replaceChildren(svg.node(), tip);
+});
+dash.draw('radios-cartoes', (el) => {
+  const d = dash.data('radios_cartoes');
+  if (!pronto(el, d)) return;
+  const audio = document.getElementById('olho-audio');
+  const tocando = dash.params().tocando || null;
+  const grupos = Array.from(new Set(d.data.map((r) => r.grupo)));
+  el.replaceChildren(...grupos.map((g) => {
+    const sec = document.createElement('div');
+    const h3 = document.createElement('h3'); h3.textContent = g;
+    const grade = document.createElement('div'); grade.className = 'olho-radios-grade';
+    d.data.filter((r) => r.grupo === g).forEach((r) => {
+      const card = document.createElement('article'); card.className = 'olho-radio';
+      card.style.setProperty('--olho-cor', r.data_hora ? corBoletim(r) : 'var(--terra)');
+      const nome = document.createElement('h4'); nome.textContent = r.nome;
+      const meta = document.createElement('p'); meta.textContent = r.pais + ', ' + r.idioma_nome + ', ' + String(r.perfil).toLowerCase() + ', nota ' + r.nota;
+      const st = document.createElement('p');
+      st.textContent = r.data_hora ? (r.fala_de_guerra ? 'Falou de guerra no boletim de ' : 'Sem menção a guerra no boletim de ') + horaBR(r.data_hora) : r.status;
+      card.append(nome, meta, st);
+      if (r.resumo) { const p = document.createElement('p'); p.className = 'olho-resumo'; p.textContent = r.resumo; card.append(p); }
+      if (r.trechos) r.trechos.split(' | ').forEach((t) => { const p = document.createElement('p'); p.className = 'olho-trecho'; p.textContent = '“' + t + '”'; card.append(p); });
+      if (r.temas) { const p = document.createElement('p'); p.textContent = 'Temas: ' + r.temas; card.append(p); }
+      const acoes = document.createElement('div'); acoes.className = 'olho-acoes';
+      if (window.OLHO_AUDIO && r.stream_url && audio) {
+        const bt = document.createElement('button'); bt.className = 'olho-chip'; bt.setAttribute('aria-pressed', String(tocando === r.id));
+        bt.textContent = tocando === r.id ? 'Parar' : 'Ouvir ao vivo';
+        bt.addEventListener('click', () => {
+          if (tocando === r.id) { audio.pause(); audio.removeAttribute('src'); audio.load(); dash.setParams({ tocando: null }); }
+          else { audio.src = r.stream_url; audio.play().catch(() => {}); dash.setParams({ tocando: r.id }); }
+        });
+        acoes.append(bt);
+      } else {
+        const s = document.createElement('span'); s.textContent = window.OLHO_AUDIO ? 'Sem transmissão segura encontrada' : 'Áudio disponível na versão do GitHub'; acoes.append(s);
+      }
+      if (/^https:\/\//.test(r.homepage)) acoes.append(linkSeguro(r.homepage, 'Página da rádio'));
+      card.append(acoes);
+      grade.append(card);
+    });
+    sec.append(h3, grade);
+    return sec;
+  }));
+});
+dash.draw('boletins-body', (tb) => {
+  const d = dash.data('boletins');
+  if (d.status !== 'ok') { tb.replaceChildren(); return; }
+  tb.replaceChildren(...d.data.slice().sort((a, b) => String(b.data_hora).localeCompare(String(a.data_hora))).map((b) => {
+    const tr = linha(b.id); celula(tr, horaBR(b.data_hora), 'olho-num'); celula(tr, b.radio); celula(tr, b.fala_de_guerra ? 'Sim' : 'Não'); celula(tr, b.resumo, 'olho-texto'); celula(tr, linkSeguro(b.link, 'Página da rádio'));
+    return tr;
+  }));
+});
+
+/* ---------- controles ---------- */
+document.querySelectorAll('.olho-tab').forEach((b) => b.addEventListener('click', () => { dash.setParams({ aba: b.dataset.aba }); dash.setLink(b.dataset.aba); }));
+document.querySelectorAll('button[data-escala]').forEach((b) => b.addEventListener('click', () => dash.setParams({ escala: b.dataset.escala })));
+document.querySelectorAll('button[data-horizonte]').forEach((b) => b.addEventListener('click', () => dash.setParams({ horizonte: b.dataset.horizonte })));
+document.querySelectorAll('button[data-camada]').forEach((b) => b.addEventListener('click', () => dash.setParams({ camada: b.dataset.camada })));
+document.querySelectorAll('.olho-familia').forEach((s) => s.addEventListener('change', () => dash.setParams({ familia: s.value || null })));
+dash.onData(() => {
+  const p = dash.params();
+  const aba = ABAS.includes(p.aba) ? p.aba : 'geral';
+  document.querySelectorAll('.olho-aba').forEach((s) => { s.hidden = s.id !== aba; });
+  document.querySelectorAll('.olho-tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.aba === aba)));
+  document.querySelectorAll('button[data-escala]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.escala === (p.escala || 'continental'))));
+  document.querySelectorAll('button[data-horizonte]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.horizonte === (p.horizonte || 'medio'))));
+  document.querySelectorAll('button[data-camada]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.camada === (p.camada || 'pressao'))));
+  document.querySelectorAll('.olho-familia').forEach((s) => { if (s !== document.activeElement) s.value = p.familia || ''; });
+});
+const pedido = location.hash.slice(1);
+if (ABAS.includes(pedido)) dash.setParams({ aba: pedido });
+</script>
+
+</main>
+</body>
+</html>

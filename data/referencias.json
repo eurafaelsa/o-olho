@@ -1,0 +1,62 @@
+[
+ {
+  "id": "relogio",
+  "indicador": "Relógio do Juízo Final",
+  "valor": 85,
+  "unidade": "segundos para a meia-noite",
+  "data": "2026-01-27",
+  "fonte_nome": "AP via PBS",
+  "url": "https://www.pbs.org/newshour/world/doomsday-clock-ticks-closer-to-midnight-amid-threats-from-ai-climate-change-and-nuclear-war",
+  "nota": "O mais perto da meia-noite na história do relógio"
+ },
+ {
+  "id": "hormuz",
+  "indicador": "Ataques a navios em Hormuz e arredores em outubro",
+  "valor": 28,
+  "unidade": "ataques",
+  "data": "2026-10-23",
+  "fonte_nome": "Reuters via US News",
+  "url": "https://www.usnews.com/news/world/articles/2026-10-23/ship-attacks-in-strait-of-hormuz-hit-record-high-in-october",
+  "nota": "Recorde mensal; 113 desde o início da guerra"
+ },
+ {
+  "id": "brent",
+  "indicador": "Petróleo Brent",
+  "valor": 94.11,
+  "unidade": "US$ por barril",
+  "data": "2026-11-04",
+  "fonte_nome": "AP via TT News",
+  "url": "https://www.ttnews.com/authors/stan-choe-and-david-mchugh",
+  "nota": "Queda de 9,2% no dia; em 6/11 voltou a superar US$ 100, segundo a APA"
+ },
+ {
+  "id": "acled_eventos",
+  "indicador": "Eventos de conflito registrados pelo ACLED",
+  "valor": 204605,
+  "unidade": "eventos",
+  "data": "2025-11-28",
+  "fonte_nome": "Newsweek",
+  "url": "https://newsweek.com/world-map-shows-deadliest-wars-2025-11179539",
+  "nota": "Período de 1/12/2024 a 28/11/2025"
+ },
+ {
+  "id": "acled_mortes",
+  "indicador": "Mortes em conflitos registradas pelo ACLED",
+  "valor": 240000,
+  "unidade": "mortes, no mínimo",
+  "data": "2025-11-28",
+  "fonte_nome": "Newsweek",
+  "url": "https://newsweek.com/world-map-shows-deadliest-wars-2025-11179539",
+  "nota": "Mesmo período"
+ },
+ {
+  "id": "ucrania_2025",
+  "indicador": "Mortes na guerra da Ucrânia em 2025",
+  "valor": 78000,
+  "unidade": "mortes, aproximado",
+  "data": "2025-11-28",
+  "fonte_nome": "Newsweek",
+  "url": "https://newsweek.com/world-map-shows-deadliest-wars-2025-11179539",
+  "nota": "Conflito mais letal do ano segundo o ACLED"
+ }
+]

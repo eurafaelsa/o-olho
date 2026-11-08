@@ -1,0 +1,254 @@
+[
+ {
+  "iso3": "AFG",
+  "pais": "Afeganistão",
+  "status": "Guerra em curso",
+  "desde": "2026-09-29",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "BFA",
+  "pais": "Burkina Faso",
+  "status": "Guerra em curso",
+  "desde": "2021-08-15",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "COL",
+  "pais": "Colômbia",
+  "status": "Guerra em curso",
+  "desde": "2026-05-25",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "COD",
+  "pais": "RD Congo",
+  "status": "Guerra em curso",
+  "desde": "2018-02-05",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "ETH",
+  "pais": "Etiópia",
+  "status": "Guerra em curso",
+  "desde": "2023-05-08",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "IRN",
+  "pais": "Irã",
+  "status": "Guerra em curso",
+  "desde": "2026-09-29",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "ISR",
+  "pais": "Israel",
+  "status": "Guerra em curso",
+  "desde": "2023-10-07",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "LBN",
+  "pais": "Líbano",
+  "status": "Guerra em curso",
+  "desde": "2026-08-15",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "MLI",
+  "pais": "Mali",
+  "status": "Guerra em curso",
+  "desde": "2018-07-17",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "MEX",
+  "pais": "México",
+  "status": "Guerra em curso",
+  "desde": "2018-09-27",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "MMR",
+  "pais": "Mianmar",
+  "status": "Guerra em curso",
+  "desde": "2021-07-26",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "NER",
+  "pais": "Níger",
+  "status": "Guerra em curso",
+  "desde": "2025-05-01",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "NGA",
+  "pais": "Nigéria",
+  "status": "Guerra em curso",
+  "desde": "2018-02-05",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "PAK",
+  "pais": "Paquistão",
+  "status": "Guerra em curso",
+  "desde": "2023-09-29",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "SOM",
+  "pais": "Somália",
+  "status": "Guerra em curso",
+  "desde": "2023-12-03",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "SDN",
+  "pais": "Sudão",
+  "status": "Guerra em curso",
+  "desde": "2023-04-09",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "UKR",
+  "pais": "Ucrânia",
+  "status": "Guerra em curso",
+  "desde": "2022-02-24",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "YEM",
+  "pais": "Iêmen",
+  "status": "Guerra em curso",
+  "desde": "2026-07-23",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": ""
+ },
+ {
+  "iso3": "PSE",
+  "pais": "Palestina",
+  "status": "Guerra em curso",
+  "desde": "2023-10-07",
+  "fonte_nome": "World Monitor (dados UCDP)",
+  "url": "https://www.worldmonitor.app/crises/",
+  "nota": "Cessar-fogo de outubro de 2025 com mortes frequentes"
+ },
+ {
+  "iso3": "RUS",
+  "pais": "Rússia",
+  "status": "Parte em guerra",
+  "desde": "2022-02-24",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": "Guerra travada sobretudo em território ucraniano; War Radar registra violência armada na Rússia desde agosto de 2026"
+ },
+ {
+  "iso3": "USA",
+  "pais": "Estados Unidos",
+  "status": "Parte em guerra",
+  "desde": "2026-02-28",
+  "fonte_nome": "World Conflict Map",
+  "url": "https://armedconflicts.org/",
+  "nota": "Guerra com o Irã travada no Golfo e em território iraniano"
+ },
+ {
+  "iso3": "BRA",
+  "pais": "Brasil",
+  "status": "Violência armada",
+  "desde": "2026-09-29",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": "Violência armada sem guerra declarada, pela classificação do War Radar"
+ },
+ {
+  "iso3": "CMR",
+  "pais": "Camarões",
+  "status": "Violência armada",
+  "desde": "2026-04-12",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": "Violência armada sem guerra declarada, pela classificação do War Radar"
+ },
+ {
+  "iso3": "ECU",
+  "pais": "Equador",
+  "status": "Violência armada",
+  "desde": "2026-09-29",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": "Violência armada sem guerra declarada, pela classificação do War Radar"
+ },
+ {
+  "iso3": "IND",
+  "pais": "Índia",
+  "status": "Violência armada",
+  "desde": "2026-09-29",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": "Violência armada sem guerra declarada, pela classificação do War Radar"
+ },
+ {
+  "iso3": "SAU",
+  "pais": "Arábia Saudita",
+  "status": "Violência armada",
+  "desde": "2026-09-29",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": "Violência armada sem guerra declarada, pela classificação do War Radar"
+ },
+ {
+  "iso3": "ZAF",
+  "pais": "África do Sul",
+  "status": "Violência armada",
+  "desde": "2026-08-07",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": "Violência armada sem guerra declarada, pela classificação do War Radar"
+ },
+ {
+  "iso3": "SYR",
+  "pais": "Síria",
+  "status": "Violência armada",
+  "desde": "2026-07-13",
+  "fonte_nome": "War Radar",
+  "url": "https://warradar.org/en/wars-now.html",
+  "nota": "Violência armada sem guerra declarada, pela classificação do War Radar"
+ }
+]

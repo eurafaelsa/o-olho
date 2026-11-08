@@ -1,0 +1,32 @@
+/* Tema do painel O Olho: azul-aço de sala de situação, claro e escuro. */
+:root {
+  color-scheme: light;
+  --color-bg: #eef1f4; --color-panel: #ffffff; --color-fg: #16202b; --color-fg-muted: #5b6672; --color-border-line: #d5dbe1;
+  --color-ok: #2f8f6b; --color-warn: #d9822b; --color-bad: #c8372d;
+  --cds-chart-muted: #aab3bc; --cds-chart-grid: #e4e8ec; --cds-chart-axis: #8a949e; --cds-chart-reference: #5b6672;
+  --cds-surface-popover: #ffffff; --cds-border: #d5dbe1; --cds-shadow-popover: 0 6px 20px rgba(22, 32, 43, 0.14); --cds-text-secondary: #5b6672;
+  --cds-radius: 8px; --cds-pad-xs: 4px; --cds-pad-sm: 8px; --cds-pad-md: 12px; --cds-pad-lg: 16px;
+  --cds-gap-xs: 6px; --cds-gap-sm: 10px; --cds-gap-md: 16px; --cds-gap-lg: 24px;
+  --cds-font-size-caption: 12px; --cds-font-size-body: 14px; --cds-font-size-heading: 16px; --cds-font-size-title: 30px;
+  --cds-font-weight-medium: 600; --cds-dur-slow: 0.4s;
+  --font-anthropic-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-anthropic-serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --color-bg: #0e1620; --color-panel: #16212c; --color-fg: #e6ebf0; --color-fg-muted: #9aa6b2; --color-border-line: #263443;
+    --color-ok: #4fb38c; --color-warn: #e89a4c; --color-bad: #e2574c;
+    --cds-chart-muted: #4b5866; --cds-chart-grid: #223040; --cds-chart-axis: #6c7a88; --cds-chart-reference: #9aa6b2;
+    --cds-surface-popover: #1c2936; --cds-border: #2c3c4d; --cds-shadow-popover: 0 6px 20px rgba(0, 0, 0, 0.45); --cds-text-secondary: #9aa6b2;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--color-bg); color: var(--color-fg); font-family: var(--font-anthropic-sans); line-height: 1.45;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) 16px calc(env(safe-area-inset-bottom, 0px) + 28px); }
+#dash-root { max-width: 1120px; margin: 0 auto; }
+.dash-skeleton { animation: olho-pulso 1.4s ease-in-out infinite; background: color-mix(in srgb, var(--color-fg) 6%, transparent); border-radius: var(--cds-radius); }
+@keyframes olho-pulso { 50% { opacity: 0.55; } }
+@media (prefers-reduced-motion: reduce) { .dash-skeleton { animation: none; } }
+:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }

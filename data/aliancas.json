@@ -1,0 +1,290 @@
+[
+ {
+  "id": "A01",
+  "ator_a": "EUA",
+  "ator_b": "Irã",
+  "tipo": "Hostilidade",
+  "nota": "Guerra aberta desde fevereiro de 2026, com bloqueio naval americano aos portos iranianos",
+  "fonte_nome": "Al Jazeera",
+  "url": "https://www.aljazeera.com/news/2026/10/14/iran-steps-up-hormuz-surveillance-attacks-soar-oil-flows-crash-again"
+ },
+ {
+  "id": "A02",
+  "ator_a": "Israel",
+  "ator_b": "Irã",
+  "tipo": "Hostilidade",
+  "nota": "Israel atacou o Irã junto com os EUA em 28 de fevereiro de 2026",
+  "fonte_nome": "Wikipedia",
+  "url": "https://en.wikipedia.org/wiki/2026_Strait_of_Hormuz_crisis"
+ },
+ {
+  "id": "A03",
+  "ator_a": "Irã",
+  "ator_b": "Houthis",
+  "tipo": "Aliança",
+  "nota": "Houthis alinhados ao Irã atacam a Arábia Saudita e controlam Bab al-Mandeb",
+  "fonte_nome": "Al Jazeera",
+  "url": "https://www.aljazeera.com/news/2026/10/17/us-and-iran-both-claim-control-of-strait-of-hormuz-amid-attacks-on-vessels"
+ },
+ {
+  "id": "A04",
+  "ator_a": "Houthis",
+  "ator_b": "Arábia Saudita",
+  "tipo": "Hostilidade",
+  "nota": "Houthis bombardeiam a Arábia Saudita e avançam contra o governo iemenita apoiado por Riad",
+  "fonte_nome": "International Crisis Group",
+  "url": "https://www.crisisgroup.org/sites/default/files/crisiswatch/crisiswatch-september-2026-global-overview.pdf"
+ },
+ {
+  "id": "A05",
+  "ator_a": "Arábia Saudita",
+  "ator_b": "Irã",
+  "tipo": "Diálogo",
+  "nota": "Autoridades sauditas se reuniram com o presidente iraniano em Teerã e concordaram em seguir conversando",
+  "fonte_nome": "GlobalSecurity",
+  "url": "https://www.globalsecurity.org/military/ops/iran-war-oprep.htm"
+ },
+ {
+  "id": "A06",
+  "ator_a": "Turquia",
+  "ator_b": "Irã",
+  "tipo": "Diálogo",
+  "nota": "Turquia participou da reunião em Teerã",
+  "fonte_nome": "GlobalSecurity",
+  "url": "https://www.globalsecurity.org/military/ops/iran-war-oprep.htm"
+ },
+ {
+  "id": "A07",
+  "ator_a": "Paquistão",
+  "ator_b": "Irã",
+  "tipo": "Diálogo",
+  "nota": "Paquistão participou da reunião em Teerã e já atuou como mediador entre EUA e Irã",
+  "fonte_nome": "GlobalSecurity",
+  "url": "https://www.globalsecurity.org/military/ops/iran-war-oprep.htm"
+ },
+ {
+  "id": "A08",
+  "ator_a": "Israel",
+  "ator_b": "Hezbollah",
+  "tipo": "Hostilidade",
+  "nota": "Conflito retomado no contexto da guerra com o Irã",
+  "fonte_nome": "Wikipedia",
+  "url": "https://en.wikipedia.org/wiki/2026_Iran_war"
+ },
+ {
+  "id": "A09",
+  "ator_a": "Rússia",
+  "ator_b": "Ucrânia",
+  "tipo": "Hostilidade",
+  "nota": "Guerra em curso há mais de quatro anos e meio; trégua apenas local em Kherson",
+  "fonte_nome": "NPR",
+  "url": "https://npr.org/2026/10/27/g-s1-150037/russia-ukraine-war"
+ },
+ {
+  "id": "A10",
+  "ator_a": "Rússia",
+  "ator_b": "OTAN",
+  "tipo": "Atrito",
+  "nota": "Ataques com direção russa comprovada ou suspeita contra países da linha de frente da aliança",
+  "fonte_nome": "CEPA",
+  "url": "https://cepa.org/article/russian-strikes-rise-across-natos-eastern-flank/"
+ },
+ {
+  "id": "A11",
+  "ator_a": "EUA",
+  "ator_b": "Ucrânia",
+  "tipo": "Aliança",
+  "nota": "Aliança sob tensão: acordo de diesel dos EUA com Moscou e interrupções no apoio de inteligência a Kyiv",
+  "fonte_nome": "International Crisis Group",
+  "url": "https://www.crisisgroup.org/ku/crisiswatch"
+ },
+ {
+  "id": "A12",
+  "ator_a": "Coreia do Norte",
+  "ator_b": "Rússia",
+  "tipo": "Aliança",
+  "nota": "Soldados norte-coreanos capturados lutando pela Rússia foram transferidos à Coreia do Sul em setembro",
+  "fonte_nome": "Wikipedia",
+  "url": "https://en.wikipedia.org/wiki/2026_in_North_Korea"
+ },
+ {
+  "id": "A13",
+  "ator_a": "Coreia do Norte",
+  "ator_b": "Coreia do Sul",
+  "tipo": "Atrito",
+  "nota": "Minas na zona desmilitarizada e testes de mísseis dos dois lados",
+  "fonte_nome": "Al Jazeera",
+  "url": "https://www.aljazeera.com/news/2026/10/12/north-korea-fires-multiple-ballistic-missiles-towards-the-sea"
+ },
+ {
+  "id": "A14",
+  "ator_a": "China",
+  "ator_b": "Taiwan",
+  "tipo": "Atrito",
+  "nota": "Exercícios militares chineses após o discurso do Dia Nacional de Taiwan",
+  "fonte_nome": "Japan Times",
+  "url": "https://www.japantimes.co.jp/news/2026/10/12/asia-pacific/taiwan-monitoring-china-drills/"
+ },
+ {
+  "id": "A15",
+  "ator_a": "EUA",
+  "ator_b": "Taiwan",
+  "tipo": "Aliança",
+  "nota": "Venda de armas de US$ 11 bilhões, a maior já anunciada para Taiwan",
+  "fonte_nome": "Japan Times",
+  "url": "https://www.japantimes.co.jp/news/2026/10/12/asia-pacific/taiwan-monitoring-china-drills/"
+ },
+ {
+  "id": "A16",
+  "ator_a": "China",
+  "ator_b": "Filipinas",
+  "tipo": "Atrito",
+  "nota": "Treino anfíbio chinês lido como pressão sobre a presença filipina no Mar do Sul da China",
+  "fonte_nome": "AEI e ISW",
+  "url": "https://www.aei.org/commentary/china-taiwan-update-october-23-2026/"
+ },
+ {
+  "id": "A17",
+  "ator_a": "Paquistão",
+  "ator_b": "Talibã",
+  "tipo": "Hostilidade",
+  "nota": "Ataques aéreos e confrontos de fronteira desde o início de outubro",
+  "fonte_nome": "Long War Journal",
+  "url": "https://www.longwarjournal.org/archives/2026/10/pakistan-taliban-border-clashes-continue-amid-diplomatic-efforts.php"
+ },
+ {
+  "id": "A18",
+  "ator_a": "Rússia",
+  "ator_b": "Paquistão",
+  "tipo": "Diálogo",
+  "nota": "Ministro do Interior russo se reuniu com o chefe do Exército paquistanês em 14 de outubro",
+  "fonte_nome": "Long War Journal",
+  "url": "https://www.longwarjournal.org/archives/2026/10/pakistan-taliban-border-clashes-continue-amid-diplomatic-efforts.php"
+ },
+ {
+  "id": "A19",
+  "ator_a": "Rússia",
+  "ator_b": "Talibã",
+  "tipo": "Diálogo",
+  "nota": "Chefe da inteligência externa russa se reuniu com o colega do Talibã",
+  "fonte_nome": "Long War Journal",
+  "url": "https://www.longwarjournal.org/archives/2026/10/pakistan-taliban-border-clashes-continue-amid-diplomatic-efforts.php"
+ },
+ {
+  "id": "A20",
+  "ator_a": "Etiópia",
+  "ator_b": "Eritreia",
+  "tipo": "Hostilidade",
+  "nota": "Relações diplomáticas rompidas em 1º de outubro",
+  "fonte_nome": "International Crisis Group",
+  "url": "https://www.crisisgroup.org/crisiswatch/september-trends-and-october-alerts-2026"
+ },
+ {
+  "id": "A21",
+  "ator_a": "TPLF",
+  "ator_b": "Eritreia",
+  "tipo": "Aliança",
+  "nota": "Eritreia é próxima da TPLF, o que pode arrastá-la para a guerra",
+  "fonte_nome": "International Crisis Group",
+  "url": "https://www.crisisgroup.org/sites/default/files/crisiswatch/crisiswatch-september-2026-global-overview.pdf"
+ },
+ {
+  "id": "A22",
+  "ator_a": "Etiópia",
+  "ator_b": "TPLF",
+  "tipo": "Hostilidade",
+  "nota": "Ofensiva da TPLF em várias frentes devolveu a Etiópia à guerra",
+  "fonte_nome": "International Crisis Group",
+  "url": "https://www.crisisgroup.org/sites/default/files/crisiswatch/crisiswatch-september-2026-global-overview.pdf"
+ },
+ {
+  "id": "A23",
+  "ator_a": "Etiópia",
+  "ator_b": "Egito",
+  "tipo": "Atrito",
+  "nota": "Etiópia expulsou um diplomata egípcio",
+  "fonte_nome": "International Crisis Group",
+  "url": "https://www.crisisgroup.org/crisiswatch/september-trends-and-october-alerts-2026"
+ },
+ {
+  "id": "A24",
+  "ator_a": "Camboja",
+  "ator_b": "Tailândia",
+  "tipo": "Atrito",
+  "nota": "Confrontos seguem na fronteira disputada, com risco de novas hostilidades",
+  "fonte_nome": "International Crisis Group",
+  "url": "https://www.crisisgroup.org/europe"
+ },
+ {
+  "id": "A25",
+  "ator_a": "Exército do Sudão",
+  "ator_b": "RSF",
+  "tipo": "Hostilidade",
+  "nota": "Exército relata avanços contra as RSF em Kordofan do Norte e Darfur Ocidental",
+  "fonte_nome": "International Crisis Group",
+  "url": "https://www.crisisgroup.org/sco/global/our-radar"
+ },
+ {
+  "id": "A26",
+  "ator_a": "Catar",
+  "ator_b": "Irã",
+  "tipo": "Diálogo",
+  "nota": "Catar media as conversas entre EUA e Irã",
+  "fonte_nome": "Reuters via US News",
+  "url": "https://www.usnews.com/news/top-news/articles/2026-11-05/tankers-hit-in-hormuz-as-iran-keeps-up-pressure-after-us-vote"
+ },
+ {
+  "id": "A27",
+  "ator_a": "Catar",
+  "ator_b": "EUA",
+  "tipo": "Diálogo",
+  "nota": "Catar media as conversas entre EUA e Irã",
+  "fonte_nome": "Reuters via US News",
+  "url": "https://www.usnews.com/news/top-news/articles/2026-11-05/tankers-hit-in-hormuz-as-iran-keeps-up-pressure-after-us-vote"
+ },
+ {
+  "id": "A28",
+  "ator_a": "Turquia",
+  "ator_b": "Rússia",
+  "tipo": "Diálogo",
+  "nota": "Turquia propõe cessar-fogo marítimo restrito no Mar Negro",
+  "fonte_nome": "Reuters via Cyprus Mail",
+  "url": "https://cyprus-mail.com/2026/11/03/war-widens-in-the-black-sea-in-a-test-of-nato-red-lines"
+ },
+ {
+  "id": "A29",
+  "ator_a": "Turquia",
+  "ator_b": "Ucrânia",
+  "tipo": "Diálogo",
+  "nota": "Turquia propõe cessar-fogo marítimo restrito no Mar Negro",
+  "fonte_nome": "Reuters via Cyprus Mail",
+  "url": "https://cyprus-mail.com/2026/11/03/war-widens-in-the-black-sea-in-a-test-of-nato-red-lines"
+ },
+ {
+  "id": "A30",
+  "ator_a": "Egito",
+  "ator_b": "Eritreia",
+  "tipo": "Aliança",
+  "nota": "Egito reuniu Eritreia, Sudão e Somália contra posições da Etiópia",
+  "fonte_nome": "Eurasia Review",
+  "url": "https://www.eurasiareview.com/07112026-the-unfolding-conflict-in-ethiopia-analysis/"
+ },
+ {
+  "id": "A31",
+  "ator_a": "China",
+  "ator_b": "Japão",
+  "tipo": "Atrito",
+  "nota": "Navios chineses na zona contígua japonesa e disputa diplomática sem sinal de fim",
+  "fonte_nome": "International Crisis Group",
+  "url": "https://www.crisisgroup.org/sites/default/files/crisiswatch/crisiswatch-october-2026-asia.pdf"
+ },
+ {
+  "id": "A32",
+  "ator_a": "Israel",
+  "ator_b": "Hamas",
+  "tipo": "Hostilidade",
+  "nota": "Cessar-fogo de outubro de 2025 com ataques e mortes frequentes em Gaza",
+  "fonte_nome": "Al Jazeera via CFR",
+  "url": "https://www.cfr.org/global-conflict-tracker/conflict/israeli-palestinian-conflict"
+ }
+]

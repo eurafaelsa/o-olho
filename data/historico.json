@@ -1,0 +1,146 @@
+[
+ {
+  "chave": "2026-10-28|local|curto",
+  "data": "2026-10-28",
+  "escala": "local",
+  "horizonte": "curto",
+  "indice": 37,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-10-28|local|medio",
+  "data": "2026-10-28",
+  "escala": "local",
+  "horizonte": "medio",
+  "indice": 50,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-10-28|local|longo",
+  "data": "2026-10-28",
+  "escala": "local",
+  "horizonte": "longo",
+  "indice": 55,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-10-28|continental|curto",
+  "data": "2026-10-28",
+  "escala": "continental",
+  "horizonte": "curto",
+  "indice": 30,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-10-28|continental|medio",
+  "data": "2026-10-28",
+  "escala": "continental",
+  "horizonte": "medio",
+  "indice": 49,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-10-28|continental|longo",
+  "data": "2026-10-28",
+  "escala": "continental",
+  "horizonte": "longo",
+  "indice": 55,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-10-28|mundial|curto",
+  "data": "2026-10-28",
+  "escala": "mundial",
+  "horizonte": "curto",
+  "indice": 23,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-10-28|mundial|medio",
+  "data": "2026-10-28",
+  "escala": "mundial",
+  "horizonte": "medio",
+  "indice": 39,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-10-28|mundial|longo",
+  "data": "2026-10-28",
+  "escala": "mundial",
+  "horizonte": "longo",
+  "indice": 44,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-11-07|local|curto",
+  "data": "2026-11-07",
+  "escala": "local",
+  "horizonte": "curto",
+  "indice": 47,
+  "foco": "Golfo Pérsico e Irã"
+ },
+ {
+  "chave": "2026-11-07|local|medio",
+  "data": "2026-11-07",
+  "escala": "local",
+  "horizonte": "medio",
+  "indice": 60,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-11-07|local|longo",
+  "data": "2026-11-07",
+  "escala": "local",
+  "horizonte": "longo",
+  "indice": 72,
+  "foco": "Iêmen, Arábia Saudita e Mar Vermelho"
+ },
+ {
+  "chave": "2026-11-07|continental|curto",
+  "data": "2026-11-07",
+  "escala": "continental",
+  "horizonte": "curto",
+  "indice": 47,
+  "foco": "Golfo Pérsico e Irã"
+ },
+ {
+  "chave": "2026-11-07|continental|medio",
+  "data": "2026-11-07",
+  "escala": "continental",
+  "horizonte": "medio",
+  "indice": 59,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-11-07|continental|longo",
+  "data": "2026-11-07",
+  "escala": "continental",
+  "horizonte": "longo",
+  "indice": 72,
+  "foco": "Iêmen, Arábia Saudita e Mar Vermelho"
+ },
+ {
+  "chave": "2026-11-07|mundial|curto",
+  "data": "2026-11-07",
+  "escala": "mundial",
+  "horizonte": "curto",
+  "indice": 27,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-11-07|mundial|medio",
+  "data": "2026-11-07",
+  "escala": "mundial",
+  "horizonte": "medio",
+  "indice": 48,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ },
+ {
+  "chave": "2026-11-07|mundial|longo",
+  "data": "2026-11-07",
+  "escala": "mundial",
+  "horizonte": "longo",
+  "indice": 51,
+  "foco": "Rússia, Ucrânia e flanco leste da OTAN"
+ }
+]

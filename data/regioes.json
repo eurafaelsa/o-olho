@@ -1,0 +1,72 @@
+[
+ {
+  "regiao": "golfo-ira",
+  "nome": "Golfo Pérsico e Irã",
+  "continente": "Oriente Médio",
+  "situacao": "Em curso",
+  "caso": "1990, Kuwait: petróleo no centro e potência externa envolvida"
+ },
+ {
+  "regiao": "russia-otan",
+  "nome": "Rússia, Ucrânia e flanco leste da OTAN",
+  "continente": "Europa",
+  "situacao": "Em curso",
+  "caso": "1983, Able Archer: risco de leitura errada entre OTAN e Rússia"
+ },
+ {
+  "regiao": "mar-vermelho",
+  "nome": "Iêmen, Arábia Saudita e Mar Vermelho",
+  "continente": "Oriente Médio",
+  "situacao": "Em curso",
+  "caso": "1914: aliados de um lado puxando terceiros para dentro"
+ },
+ {
+  "regiao": "etiopia-eritreia",
+  "nome": "Etiópia e Eritreia",
+  "continente": "África",
+  "situacao": "Em curso",
+  "caso": "1914: guerra interna que pode arrastar vizinho alinhado"
+ },
+ {
+  "regiao": "paquistao-afeganistao",
+  "nome": "Paquistão e Afeganistão",
+  "continente": "Ásia",
+  "situacao": "Em curso",
+  "caso": "1914: ataque de militantes como gatilho entre Estados"
+ },
+ {
+  "regiao": "peninsula-coreana",
+  "nome": "Península Coreana",
+  "continente": "Ásia",
+  "situacao": "Tensão sem guerra",
+  "caso": "1962, Crise dos Mísseis: escalada de testes com diálogo travado"
+ },
+ {
+  "regiao": "taiwan-mar-sul",
+  "nome": "Taiwan e mares da China",
+  "continente": "Ásia",
+  "situacao": "Tensão sem guerra",
+  "caso": "1983, Able Archer: exercícios lidos como preparação"
+ },
+ {
+  "regiao": "sudao",
+  "nome": "Sudão",
+  "continente": "África",
+  "situacao": "Em curso",
+  "caso": "Guerra civil sem paralelo direto nos casos de referência"
+ },
+ {
+  "regiao": "israel-palestina",
+  "nome": "Israel e Palestina",
+  "continente": "Oriente Médio",
+  "situacao": "Cessar-fogo frágil",
+  "caso": "Sem paralelo direto nos casos de referência"
+ },
+ {
+  "regiao": "mundo",
+  "nome": "Global",
+  "continente": "Global",
+  "situacao": "Sinais sem foco único",
+  "caso": "Sem caso de referência"
+ }
+]

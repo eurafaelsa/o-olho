@@ -1,0 +1,46 @@
+[
+ {
+  "id": "MF1",
+  "iso3": "FRA",
+  "pais": "França",
+  "data": "2026-11-05",
+  "resumo": "575 mil pessoas protestam contra o custo de vida, segundo o Ministério do Interior",
+  "intensidade": 1,
+  "fonte_nome": "Al Jazeera",
+  "url": "https://www.aljazeera.com/news/2026/11/5/workers-strike-across-france-hundreds-of-thousands-expected-to-protest",
+  "admiralty": "B1"
+ },
+ {
+  "id": "MF2",
+  "iso3": "FRA",
+  "pais": "França",
+  "data": "2026-11-07",
+  "resumo": "Quarto fim de semana seguido de protestos; polícia impede ato não autorizado perto do Eliseu",
+  "intensidade": 1,
+  "fonte_nome": "AFP via Yahoo",
+  "url": "https://sg.news.yahoo.com/mass-protests-france-police-thwart-170604287.html",
+  "admiralty": "B1"
+ },
+ {
+  "id": "MF3",
+  "iso3": "IRN",
+  "pais": "Irã",
+  "data": "2026-11-04",
+  "resumo": "Ato antiamericano em Teerã depois das eleições nos EUA",
+  "intensidade": 1,
+  "fonte_nome": "Reuters via US News",
+  "url": "https://www.usnews.com/news/top-news/articles/2026-11-05/tankers-hit-in-hormuz-as-iran-keeps-up-pressure-after-us-vote",
+  "admiralty": "B2"
+ },
+ {
+  "id": "MF4",
+  "iso3": "SRB",
+  "pais": "Sérvia",
+  "data": "2026-05-23",
+  "resumo": "Protestos anticorrupção seguem desde 2024; 180 mil em Belgrado em maio",
+  "intensidade": 1,
+  "fonte_nome": "Wikipedia",
+  "url": "https://en.wikipedia.org/wiki/2024%E2%80%93present_Serbian_anti-corruption_protests",
+  "admiralty": "C2"
+ }
+]

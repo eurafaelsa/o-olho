@@ -1,0 +1,112 @@
+[
+ {
+  "chave": "peso_militar",
+  "valor": 0.25,
+  "descricao": "Peso da família militar"
+ },
+ {
+  "chave": "peso_diplomatico",
+  "valor": 0.2,
+  "descricao": "Peso da família diplomática e de alianças"
+ },
+ {
+  "chave": "peso_violencia",
+  "valor": 0.15,
+  "descricao": "Peso da família violência em curso"
+ },
+ {
+  "chave": "peso_defesa_civil",
+  "valor": 0.15,
+  "descricao": "Peso da família defesa civil e população"
+ },
+ {
+  "chave": "peso_economico",
+  "valor": 0.15,
+  "descricao": "Peso da família econômica e energia"
+ },
+ {
+  "chave": "peso_informacional",
+  "valor": 0.1,
+  "descricao": "Peso da família informacional e retórica"
+ },
+ {
+  "chave": "k",
+  "valor": 1,
+  "descricao": "Soma de sinais que satura uma família (1 na fase painel)"
+ },
+ {
+  "chave": "meia_vida_curto",
+  "valor": 7,
+  "descricao": "Meia-vida em dias, horizonte curto"
+ },
+ {
+  "chave": "meia_vida_medio",
+  "valor": 30,
+  "descricao": "Meia-vida em dias, horizonte médio"
+ },
+ {
+  "chave": "meia_vida_longo",
+  "valor": 180,
+  "descricao": "Meia-vida em dias, horizonte longo"
+ },
+ {
+  "chave": "fonte_A",
+  "valor": 1.0,
+  "descricao": "Fonte A"
+ },
+ {
+  "chave": "fonte_B",
+  "valor": 0.85,
+  "descricao": "Fonte B"
+ },
+ {
+  "chave": "fonte_C",
+  "valor": 0.65,
+  "descricao": "Fonte C"
+ },
+ {
+  "chave": "fonte_D",
+  "valor": 0.4,
+  "descricao": "Fonte D"
+ },
+ {
+  "chave": "fonte_E",
+  "valor": 0.15,
+  "descricao": "Fonte E"
+ },
+ {
+  "chave": "fonte_F",
+  "valor": 0.3,
+  "descricao": "Fonte F"
+ },
+ {
+  "chave": "info_1",
+  "valor": 1.0,
+  "descricao": "Informação 1"
+ },
+ {
+  "chave": "info_2",
+  "valor": 0.8,
+  "descricao": "Informação 2"
+ },
+ {
+  "chave": "info_3",
+  "valor": 0.55,
+  "descricao": "Informação 3"
+ },
+ {
+  "chave": "info_4",
+  "valor": 0.3,
+  "descricao": "Informação 4"
+ },
+ {
+  "chave": "info_5",
+  "valor": 0.1,
+  "descricao": "Informação 5"
+ },
+ {
+  "chave": "info_6",
+  "valor": 0.3,
+  "descricao": "Informação 6"
+ }
+]

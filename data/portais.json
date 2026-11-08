@@ -1,0 +1,234 @@
+[
+ {
+  "id": "PT01",
+  "nome": "ACLED",
+  "categoria": "Conflitos e dados",
+  "alcance": "Global",
+  "nota": "A",
+  "url": "https://acleddata.com/"
+ },
+ {
+  "id": "PT02",
+  "nome": "GDELT",
+  "categoria": "Conflitos e dados",
+  "alcance": "Global",
+  "nota": "A",
+  "url": "https://gdeltproject.org/"
+ },
+ {
+  "id": "PT03",
+  "nome": "UCDP",
+  "categoria": "Conflitos e dados",
+  "alcance": "Global",
+  "nota": "A",
+  "url": "https://ucdp.uu.se/"
+ },
+ {
+  "id": "PT04",
+  "nome": "CrisisWatch, Crisis Group",
+  "categoria": "Conflitos e dados",
+  "alcance": "Global",
+  "nota": "A",
+  "url": "https://www.crisisgroup.org/crisiswatch"
+ },
+ {
+  "id": "PT05",
+  "nome": "CFR Global Conflict Tracker",
+  "categoria": "Conflitos e dados",
+  "alcance": "Global",
+  "nota": "A",
+  "url": "https://www.cfr.org/global-conflict-tracker"
+ },
+ {
+  "id": "PT06",
+  "nome": "War Radar",
+  "categoria": "Conflitos e dados",
+  "alcance": "Global",
+  "nota": "C",
+  "url": "https://warradar.org/"
+ },
+ {
+  "id": "PT07",
+  "nome": "World Conflict Map",
+  "categoria": "Conflitos e dados",
+  "alcance": "Global",
+  "nota": "C",
+  "url": "https://armedconflicts.org/"
+ },
+ {
+  "id": "PT08",
+  "nome": "Institute for the Study of War",
+  "categoria": "Análise militar e OSINT",
+  "alcance": "Global",
+  "nota": "B",
+  "url": "https://www.understandingwar.org/"
+ },
+ {
+  "id": "PT09",
+  "nome": "Long War Journal",
+  "categoria": "Análise militar e OSINT",
+  "alcance": "Global",
+  "nota": "B",
+  "url": "https://www.longwarjournal.org/"
+ },
+ {
+  "id": "PT10",
+  "nome": "Bellingcat",
+  "categoria": "Análise militar e OSINT",
+  "alcance": "Global",
+  "nota": "B",
+  "url": "https://www.bellingcat.com/"
+ },
+ {
+  "id": "PT11",
+  "nome": "Oryx",
+  "categoria": "Análise militar e OSINT",
+  "alcance": "Global",
+  "nota": "B",
+  "url": "https://www.oryxspioenkop.com/"
+ },
+ {
+  "id": "PT12",
+  "nome": "Liveuamap",
+  "categoria": "Análise militar e OSINT",
+  "alcance": "Global",
+  "nota": "C",
+  "url": "https://liveuamap.com/"
+ },
+ {
+  "id": "PT13",
+  "nome": "Global Protest Tracker, Carnegie",
+  "categoria": "Manifestações",
+  "alcance": "Global",
+  "nota": "A",
+  "url": "https://carnegieendowment.org/features/global-protest-tracker"
+ },
+ {
+  "id": "PT14",
+  "nome": "Security Council Report",
+  "categoria": "Acordos e diplomacia",
+  "alcance": "Global",
+  "nota": "A",
+  "url": "https://www.securitycouncilreport.org/"
+ },
+ {
+  "id": "PT15",
+  "nome": "Coleção de Tratados da ONU",
+  "categoria": "Acordos e diplomacia",
+  "alcance": "Global",
+  "nota": "A",
+  "url": "https://treaties.un.org/"
+ },
+ {
+  "id": "PT16",
+  "nome": "SIPRI",
+  "categoria": "Acordos e diplomacia",
+  "alcance": "Global",
+  "nota": "A",
+  "url": "https://www.sipri.org/"
+ },
+ {
+  "id": "PT17",
+  "nome": "Arms Control Association",
+  "categoria": "Acordos e diplomacia",
+  "alcance": "Global",
+  "nota": "B",
+  "url": "https://www.armscontrol.org/"
+ },
+ {
+  "id": "PT18",
+  "nome": "Bulletin of the Atomic Scientists",
+  "categoria": "Acordos e diplomacia",
+  "alcance": "Global",
+  "nota": "A",
+  "url": "https://thebulletin.org/"
+ },
+ {
+  "id": "PT19",
+  "nome": "CSIS, incidentes cibernéticos relevantes",
+  "categoria": "Ciber",
+  "alcance": "Global",
+  "nota": "A",
+  "url": "https://www.csis.org/programs/strategic-technologies-program/significant-cyber-incidents"
+ },
+ {
+  "id": "PT20",
+  "nome": "Hackmanac",
+  "categoria": "Ciber",
+  "alcance": "Global",
+  "nota": "B",
+  "url": "https://hackmanac.com/"
+ },
+ {
+  "id": "PT21",
+  "nome": "Trellix, relatórios de ameaças",
+  "categoria": "Ciber",
+  "alcance": "Global",
+  "nota": "B",
+  "url": "https://www.trellix.com/advanced-research-center/threat-reports/"
+ },
+ {
+  "id": "PT22",
+  "nome": "Al Jazeera",
+  "categoria": "Imprensa regional",
+  "alcance": "Oriente Médio e mundo",
+  "nota": "B",
+  "url": "https://www.aljazeera.com/"
+ },
+ {
+  "id": "PT23",
+  "nome": "Kyiv Independent",
+  "categoria": "Imprensa regional",
+  "alcance": "Ucrânia",
+  "nota": "B",
+  "url": "https://kyivindependent.com/"
+ },
+ {
+  "id": "PT24",
+  "nome": "Afghanistan International",
+  "categoria": "Imprensa regional",
+  "alcance": "Afeganistão e Paquistão",
+  "nota": "B",
+  "url": "https://www.afintl.com/en"
+ },
+ {
+  "id": "PT25",
+  "nome": "Times of Israel",
+  "categoria": "Imprensa regional",
+  "alcance": "Israel",
+  "nota": "B",
+  "url": "https://www.timesofisrael.com/"
+ },
+ {
+  "id": "PT26",
+  "nome": "SBS News",
+  "categoria": "Imprensa regional",
+  "alcance": "Coreia do Sul",
+  "nota": "B",
+  "url": "https://news.sbs.co.kr/english/"
+ },
+ {
+  "id": "PT27",
+  "nome": "Sudan Tribune",
+  "categoria": "Imprensa regional",
+  "alcance": "Sudão",
+  "nota": "C",
+  "url": "https://sudantribune.com/"
+ },
+ {
+  "id": "PT28",
+  "nome": "Proteção Civil Europeia",
+  "categoria": "Defesa civil",
+  "alcance": "União Europeia",
+  "nota": "A",
+  "url": "https://civil-protection-humanitarian-aid.ec.europa.eu/"
+ },
+ {
+  "id": "PT29",
+  "nome": "Ready.gov, FEMA",
+  "categoria": "Defesa civil",
+  "alcance": "Estados Unidos",
+  "nota": "A",
+  "url": "https://www.ready.gov/"
+ }
+]

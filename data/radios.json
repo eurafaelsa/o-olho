@@ -10,12 +10,12 @@
   "perfil": "Pública internacional",
   "nota": "B",
   "busca": "BBC World Service",
-  "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_url": "https://stream.live.vc.bbcmedia.co.uk/bbc_world_service",
+  "stream_gravacao": "https://stream.live.vc.bbcmedia.co.uk/bbc_world_service",
+  "homepage": "https://www.bbc.co.uk/sounds/play/live:bbc_world_service",
+  "nome_catalogo": "BBC World Service",
+  "status": "Falha na transcrição",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r02",
@@ -28,12 +28,12 @@
   "perfil": "Pública",
   "nota": "B",
   "busca": "Deutschlandfunk",
-  "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_url": "https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3?aggregator=web",
+  "stream_gravacao": "https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3?aggregator=web",
+  "homepage": "https://www.deutschlandfunk.de/",
+  "nome_catalogo": "Deutschlandfunk | DLF | MP3 128k",
+  "status": "Falha na transcrição",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r03",
@@ -46,12 +46,12 @@
   "perfil": "Pública internacional",
   "nota": "B",
   "busca": "RFI Monde",
-  "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_url": "https://rfiafrique64k.ice.infomaniak.ch/rfimonde-64.mp3",
+  "stream_gravacao": "https://rfiafrique64k.ice.infomaniak.ch/rfimonde-64.mp3",
+  "homepage": "https://www.karibshebdo.info/radios-web/rfi-radio",
+  "nome_catalogo": "📺 RFI Monde",
+  "status": "Falha na transcrição",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r04",
@@ -64,12 +64,12 @@
   "perfil": "Pública",
   "nota": "B",
   "busca": "franceinfo",
-  "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_url": "https://stream.radiofrance.fr/franceinfo/franceinfo_hifi.m3u8?id=radiofrance",
+  "stream_gravacao": "https://stream.radiofrance.fr/franceinfo/franceinfo_hifi.m3u8?id=radiofrance",
+  "homepage": "https://www.radiofrance.fr/franceinfo",
+  "nome_catalogo": "franceinfo",
+  "status": "Falha na transcrição",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r05",
@@ -86,8 +86,8 @@
   "stream_gravacao": "",
   "homepage": "",
   "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "status": "Sem transmissão no catálogo",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r06",
@@ -101,11 +101,11 @@
   "nota": "B",
   "busca": "Українське радіо",
   "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_gravacao": "http://91.218.213.49:8000/ur1-mp3",
+  "homepage": "https://www.radio-browser.info/history/0988bac7-46ac-4a26-b674-f0f15d53715f",
+  "nome_catalogo": "Українське радіо",
+  "status": "Falha na transcrição",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r07",
@@ -118,12 +118,12 @@
   "perfil": "Estatal",
   "nota": "D",
   "busca": "Вести ФМ",
-  "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_url": "https://icecast-vgtrk.cdnvideo.ru/vestifm_mp3_64kbps",
+  "stream_gravacao": "https://icecast-vgtrk.cdnvideo.ru/vestifm_mp3_64kbps",
+  "homepage": "https://smotrim.ru/radiovesti",
+  "nome_catalogo": "Вести ФМ",
+  "status": "Falha na transcrição",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r08",
@@ -136,12 +136,12 @@
   "perfil": "Pública",
   "nota": "B",
   "busca": "Kan Bet",
-  "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_url": "https://28563.live.streamtheworld.com/KAN_BET.mp3",
+  "stream_gravacao": "https://28563.live.streamtheworld.com/KAN_BET.mp3",
+  "homepage": "https://www.kan.org.il/",
+  "nome_catalogo": "Kan Bet",
+  "status": "Falha na transcrição",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r09",
@@ -158,8 +158,8 @@
   "stream_gravacao": "",
   "homepage": "",
   "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "status": "Sem transmissão no catálogo",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r10",
@@ -172,12 +172,12 @@
   "perfil": "Pública",
   "nota": "B",
   "busca": "KBS",
-  "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_url": "https://1fm.gscdn.kbs.co.kr/1fm_192_2.m3u8?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xZm0uZ3NjZG4ua2JzLmNvLmtyLyoiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTQxMTAzODN9fX1dfQ__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA&Signature=Q-6D8qKpBUZwUyDRv43aZSdAtZayES-JV07vz1zTBLAV9dG3e0VdwDTNPZ55~89~BCgMI0QK4ATbYQ8ZjcWm~0UW3uGX0wQtF4Iz87qYmg77u7BWv6qs3F1BAcVEc0-I2nCcrDF9vYoRnVf973jped9TWmi66Wc9Eg1r6ZgiK2-hin5Ked0~bxg~hEwuiqYuOXl~-I2EClps2JG1o9Yru6oD1vLoTBubFYsLcdJIqpga0jUJW3idgxR7uakuJiO01grtN0KAvIJdhaYXV7HdTtU2rPf~TEUoi3QykXo7QRYOhPaiPdOFZR8mF4dpmLJGINa~dkL40~~nKv1sdQSbgw__",
+  "stream_gravacao": "https://1fm.gscdn.kbs.co.kr/1fm_192_2.m3u8?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xZm0uZ3NjZG4ua2JzLmNvLmtyLyoiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTQxMTAzODN9fX1dfQ__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA&Signature=Q-6D8qKpBUZwUyDRv43aZSdAtZayES-JV07vz1zTBLAV9dG3e0VdwDTNPZ55~89~BCgMI0QK4ATbYQ8ZjcWm~0UW3uGX0wQtF4Iz87qYmg77u7BWv6qs3F1BAcVEc0-I2nCcrDF9vYoRnVf973jped9TWmi66Wc9Eg1r6ZgiK2-hin5Ked0~bxg~hEwuiqYuOXl~-I2EClps2JG1o9Yru6oD1vLoTBubFYsLcdJIqpga0jUJW3idgxR7uakuJiO01grtN0KAvIJdhaYXV7HdTtU2rPf~TEUoi3QykXo7QRYOhPaiPdOFZR8mF4dpmLJGINa~dkL40~~nKv1sdQSbgw__",
+  "homepage": "https://www.radio-browser.info/history/c038a859-7be1-11e9-aa30-52543be04c81",
+  "nome_catalogo": "KBS Classic FM",
+  "status": "Falha na gravação",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r11",
@@ -194,8 +194,8 @@
   "stream_gravacao": "",
   "homepage": "",
   "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "status": "Sem transmissão no catálogo",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r12",
@@ -212,8 +212,8 @@
   "stream_gravacao": "",
   "homepage": "",
   "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "status": "Sem transmissão no catálogo",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r13",
@@ -230,8 +230,8 @@
   "stream_gravacao": "",
   "homepage": "",
   "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "status": "Sem transmissão no catálogo",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r14",
@@ -244,12 +244,12 @@
   "perfil": "Estatal",
   "nota": "D",
   "busca": "中国之声",
-  "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_url": "https://lhttp.qtfm.cn/live/15318317/64k.mp3",
+  "stream_gravacao": "https://lhttp.qtfm.cn/live/15318317/64k.mp3",
+  "homepage": "https://www.radio-browser.info/history/835070cd-bf45-4e48-88a4-e9f9a0d7dd9e",
+  "nome_catalogo": "CNR-1 中国之声",
+  "status": "Falha na transcrição",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r15",
@@ -262,12 +262,12 @@
   "perfil": "Comercial",
   "nota": "B",
   "busca": "CBN",
-  "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_url": "https://playerservices.streamtheworld.com/api/livestream-redirect/CBN_SPAAC.aac",
+  "stream_gravacao": "https://playerservices.streamtheworld.com/api/livestream-redirect/CBN_SPAAC.aac",
+  "homepage": "https://cbn.globoradio.globo.com/programas/cbn-sao-paulo/CBN-SAO-PAULO.htm",
+  "nome_catalogo": "CBN São Paulo",
+  "status": "Falha na transcrição",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r16",
@@ -280,12 +280,12 @@
   "perfil": "Comercial",
   "nota": "B",
   "busca": "BandNews",
-  "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_url": "https://playerservices.streamtheworld.com/api/livestream-redirect/BANDNEWSFM_SPAAC.m3u8",
+  "stream_gravacao": "https://playerservices.streamtheworld.com/api/livestream-redirect/BANDNEWSFM_SPAAC.m3u8",
+  "homepage": "https://www.band.uol.com.br/radios/bandnews-fm/sao-paulo",
+  "nome_catalogo": "bandnews fm sp",
+  "status": "Falha na transcrição",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  },
  {
   "id": "r17",
@@ -298,11 +298,11 @@
   "perfil": "Pública",
   "nota": "B",
   "busca": "Rádio Nacional",
-  "stream_url": "",
-  "stream_gravacao": "",
-  "homepage": "",
-  "nome_catalogo": "",
-  "status": "Aguardando a primeira rodada",
-  "ultima_checagem": ""
+  "stream_url": "https://stream-178.surfernetwork.com/m3ytuubv0uhvv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJtM3l0dXVidjB1aHZ2IiwiaG9zdCI6InN0cmVhbS0xNzguc3VyZmVybmV0d29yay5jb20iLCJ0bSI6ZmFsc2UsInJ0dGwiOjUsImp0aSI6IlBEeXlTZmUtUlJLMjJUODRGUWRrSnciLCJpYXQiOjE3OTQwMDMzMDgsImV4cCI6MTc5NDAwMzM2OH0.loNTy9FLO3hU24_szLQGs0D1eqXdpGVzfS3m0lOJBIE",
+  "stream_gravacao": "https://stream-178.surfernetwork.com/m3ytuubv0uhvv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJtM3l0dXVidjB1aHZ2IiwiaG9zdCI6InN0cmVhbS0xNzguc3VyZmVybmV0d29yay5jb20iLCJ0bSI6ZmFsc2UsInJ0dGwiOjUsImp0aSI6IlBEeXlTZmUtUlJLMjJUODRGUWRrSnciLCJpYXQiOjE3OTQwMDMzMDgsImV4cCI6MTc5NDAwMzM2OH0.loNTy9FLO3hU24_szLQGs0D1eqXdpGVzfS3m0lOJBIE",
+  "homepage": "https://zeno.fm/radio/CNMABR",
+  "nome_catalogo": "Rádio Nacional da Memória Adventista",
+  "status": "Falha na transcrição",
+  "ultima_checagem": "2026-11-08T15:51:00Z"
  }
 ]

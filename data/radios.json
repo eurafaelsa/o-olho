@@ -15,7 +15,7 @@
   "homepage": "https://www.bbc.co.uk/sounds/play/live:bbc_world_service",
   "nome_catalogo": "BBC World Service",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r02",
@@ -33,7 +33,7 @@
   "homepage": "https://www.deutschlandfunk.de/",
   "nome_catalogo": "Deutschlandfunk | DLF | MP3 128k",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r03",
@@ -51,7 +51,7 @@
   "homepage": "https://www.karibshebdo.info/radios-web/rfi-radio",
   "nome_catalogo": "📺 RFI Monde",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r04",
@@ -69,7 +69,7 @@
   "homepage": "https://icecast.radiofrance.fr/franceinfo-lofi.aac",
   "nome_catalogo": "franceinfo aac lofi",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r05",
@@ -87,7 +87,7 @@
   "homepage": "https://wosu.org/",
   "nome_catalogo": "WOSU 89.7 NPR News",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r06",
@@ -105,7 +105,7 @@
   "homepage": "https://www.radio-browser.info/history/0988bac7-46ac-4a26-b674-f0f15d53715f",
   "nome_catalogo": "Українське радіо",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r07",
@@ -123,7 +123,7 @@
   "homepage": "https://smotrim.ru/radiovesti",
   "nome_catalogo": "Вести ФМ",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r08",
@@ -141,7 +141,7 @@
   "homepage": "https://www.kan.org.il/",
   "nome_catalogo": "Kan Bet",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r09",
@@ -159,7 +159,7 @@
   "homepage": "",
   "nome_catalogo": "",
   "status": "Sem transmissão no catálogo",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r10",
@@ -176,8 +176,8 @@
   "stream_gravacao": "https://1fm.gscdn.kbs.co.kr/1fm_192_2.m3u8?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xZm0uZ3NjZG4ua2JzLmNvLmtyLyoiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTQ2MTc5NTl9fX1dfQ__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA&Signature=Hhs86UwUW8hoS2zjw8e2cpekNhZvIOgSOFUzmKXEtan8zxJ2EMLUs~ugZ-tXajqj-H8bJ4t9xczeUf5IWuo5jich5fNLaLnn-5y5j~JLgZWiLKnCewOIyk3-kzu0h13gUtB49P3AXqnE-RzFhQ1aoECyECKfmrWBPeQe5~SIxpjC24RjvdlFmmYrtK7F8r-C1kEXzDtDQFhiD-4Htxv93e6YDnsbT8Il7jI~sjpoXQwtGyJbPVK5kIL3NDgi-tJc0inFWAwTxzhU59JlSc38SfKMvBbFn7keO6JaCEGbXz5As5yIrv2XuShYkeDWoAuKGcqHZ283SYV1HhxxeNeOSA__",
   "homepage": "https://www.radio-browser.info/history/c038a859-7be1-11e9-aa30-52543be04c81",
   "nome_catalogo": "KBS Classic FM",
-  "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "status": "Falha na gravação",
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r11",
@@ -195,7 +195,7 @@
   "homepage": "https://www.vok.rep.kp/index.php/home/main/ch",
   "nome_catalogo": "Voice of Korea 조선의 소리 방송",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r12",
@@ -213,7 +213,7 @@
   "homepage": "https://www3.nhk.or.jp/nhkworld/ja/",
   "nome_catalogo": "NHKワールド・ラジオ日本",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r13",
@@ -231,7 +231,7 @@
   "homepage": "",
   "nome_catalogo": "",
   "status": "Sem transmissão no catálogo",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r14",
@@ -249,7 +249,7 @@
   "homepage": "https://www.radio-browser.info/history/835070cd-bf45-4e48-88a4-e9f9a0d7dd9e",
   "nome_catalogo": "CNR-1 中国之声",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r15",
@@ -267,7 +267,7 @@
   "homepage": "https://cbn.globoradio.globo.com/programas/cbn-sao-paulo/CBN-SAO-PAULO.htm",
   "nome_catalogo": "CBN São Paulo",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r16",
@@ -285,7 +285,7 @@
   "homepage": "https://www.band.uol.com.br/radios/bandnews-fm/sao-paulo",
   "nome_catalogo": "bandnews fm sp",
   "status": "Falha na transcrição",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  },
  {
   "id": "r17",
@@ -303,6 +303,6 @@
   "homepage": "https://zeno.fm/radio/CNMABR",
   "nome_catalogo": "Rádio Nacional da Memória Adventista",
   "status": "Falha na gravação",
-  "ultima_checagem": "2026-11-13T17:01:00Z"
+  "ultima_checagem": "2026-11-14T02:03:00Z"
  }
 ]
